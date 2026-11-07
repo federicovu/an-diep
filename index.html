@@ -1,0 +1,1556 @@
+<title>Trà An Diệp</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Dancing+Script:wght@700&family=Nunito:wght@500;600;700;800&family=Prata&display=swap">
+<style>
+/* Layout: cột ứng dụng điện thoại; lớp "giao diện mềm" ở cuối khối style bo góc thẻ, nút, chat và thêm màu nhấn */
+:root{
+  --paper:#EDEFE7; --surface:#FAFBF6; --sunk:#E0E4D9; --rule:#C3C9BB; --ink:#131A15; --muted:#566055;
+  --bodhi:#1D4F33; --on-bodhi:#F3F6EE; --bodhi-text:#1D4F33; --bodhi-soft:#D7E4D3;
+  --saffron:#DE9C17; --saffron-soft:#F4E3B8; --on-saffron:#131A15;
+  --warn:#A13A1D; --warn-soft:#F3DCD2;
+  --kraft:#C8A473; --kraft-ink:#2C1F10; --kraft-dark:#A98557;
+  --bin-food:#3C7A35; --bin-recycle:#2C6A99; --bin-other:#6A706B; --bin-haz:#B4471F;
+  --f-display:"Prata", Georgia, "Times New Roman", serif;
+  --f-body:"Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --f-cond:"Barlow Condensed", "Roboto Condensed", "Arial Narrow", sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1310; --surface:#151C17; --sunk:#1B241E; --rule:#2D3A31; --ink:#E6EBE3; --muted:#9AA797;
+    --bodhi:#24603F; --on-bodhi:#F1F5EE; --bodhi-text:#8FCBA2; --bodhi-soft:#1A2E22;
+    --saffron:#E4AA35; --saffron-soft:#3A2C12; --on-saffron:#131A15;
+    --warn:#F09A7E; --warn-soft:#3A1E16;
+    --kraft:#9C7C52; --kraft-ink:#1C140A; --kraft-dark:#7D6140;
+    --bin-food:#84C47E; --bin-recycle:#7FB2DD; --bin-other:#A7ADA9; --bin-haz:#F08E68;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1310; --surface:#151C17; --sunk:#1B241E; --rule:#2D3A31; --ink:#E6EBE3; --muted:#9AA797;
+  --bodhi:#24603F; --on-bodhi:#F1F5EE; --bodhi-text:#8FCBA2; --bodhi-soft:#1A2E22;
+  --saffron:#E4AA35; --saffron-soft:#3A2C12; --on-saffron:#131A15;
+  --warn:#F09A7E; --warn-soft:#3A1E16;
+  --kraft:#9C7C52; --kraft-ink:#1C140A; --kraft-dark:#7D6140;
+  --bin-food:#84C47E; --bin-recycle:#7FB2DD; --bin-other:#A7ADA9; --bin-haz:#F08E68;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+img{max-width:100%}
+html{height:100%}
+body{height:100%;margin:0;background:var(--sunk);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+button,input,select{font:inherit;color:inherit;border-radius:0}
+button{cursor:pointer;background:none;border:0;padding:0;text-align:inherit}
+input,select{-webkit-appearance:none;appearance:none}
+:focus-visible{outline:2px solid var(--saffron);outline-offset:2px}
+p{margin:0}
+h2,h3{margin:0;font-weight:400}
+.g{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;padding:0;margin:-1px}
+.app{max-width:480px;height:100%;margin:0 auto;display:flex;flex-direction:column;min-height:0;background:var(--paper)}
+@media (min-width:520px){ .app{border-left:1.5px solid var(--ink);border-right:1.5px solid var(--ink)} }
+
+/* Chữ */
+.h{font-family:var(--f-display);font-size:21px;line-height:1.25;text-wrap:balance}
+.lab{font-family:var(--f-cond);font-weight:600;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.num{font-family:var(--f-cond);font-weight:700;font-variant-numeric:tabular-nums}
+.abc{margin:0;padding:0;list-style:none;display:flex;flex-direction:column}
+.abc li{display:grid;grid-template-columns:26px minmax(0,1fr);gap:4px;padding-block:8px;border-top:1px solid var(--rule)}
+.abc li > b:first-child{font-family:var(--f-cond);font-weight:700;color:var(--bodhi-text)}
+
+/* Nút */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:9px 16px;font-weight:600;font-size:14px;text-align:center;border:1.5px solid var(--ink)}
+.btn:active{transform:translate(1px,1px)}
+.btn-pri{background:var(--bodhi);color:var(--on-bodhi);border-color:var(--bodhi)}
+.btn-acc{background:var(--saffron);color:var(--on-saffron);border-color:var(--saffron)}
+.btn-out{background:var(--surface);color:var(--ink)}
+.btn-ghost-light{background:transparent;color:var(--on-bodhi);border-color:var(--on-bodhi)}
+.btn:disabled{opacity:.5;cursor:default}
+.row2{display:flex;gap:8px;flex-wrap:wrap}
+.row2 .btn{flex:1}
+.linkbtn{font-family:var(--f-cond);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--bodhi-text);text-decoration:underline;text-underline-offset:3px}
+
+/* Thanh trên */
+.topbar{background:var(--bodhi);color:var(--on-bodhi);display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand svg{width:24px;height:34px;flex:none;color:var(--on-bodhi)}
+.brand-name{font-family:var(--f-display);font-size:23px;line-height:1.1}
+.brand-sub{font-family:var(--f-cond);font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.78}
+.avatar{width:40px;height:40px;border:1.5px solid var(--on-bodhi);color:var(--on-bodhi);font-family:var(--f-cond);font-weight:700;font-size:19px;display:grid;place-items:center;flex:none;text-align:center}
+
+/* Khung nội dung */
+main{flex:1;min-height:0;display:flex;flex-direction:column}
+.view{flex:1;min-height:0;display:flex;flex-direction:column}
+.scroll{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-bottom:28px}
+.sec{padding-top:22px}
+.head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-top:2px solid var(--ink);padding-top:10px;margin-bottom:12px}
+.foot{font-size:12px;color:var(--muted);padding-top:22px}
+
+/* Dải quét QR */
+.strip{display:flex;align-items:center;gap:12px;width:100%;background:var(--saffron-soft);border-bottom:1.5px solid var(--ink);padding-block:10px}
+.strip svg{width:28px;height:28px;flex:none}
+.strip b{display:block;font-size:13.5px;font-weight:600}
+.strip span{font-size:12px;color:var(--muted)}
+.strip .go{margin-left:auto;font-family:var(--f-cond);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
+
+/* Khối hôm nay */
+.today{background:var(--bodhi);color:var(--on-bodhi);padding-block:18px 16px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 20px;align-items:start}
+.today .lab{color:inherit;opacity:.72}
+.today .big{font-family:var(--f-cond);font-weight:700;font-size:68px;line-height:.86;font-variant-numeric:tabular-nums;margin-top:4px}
+.today .big small{font-size:30px;opacity:.65}
+.today .nx{min-width:0;padding-top:2px}
+.today .nx .t{font-size:17px;font-weight:600;line-height:1.3;margin-top:2px}
+.today .nx p{font-size:13px;opacity:.86;margin-top:4px}
+.cells{grid-column:1/-1;display:flex;gap:6px;margin-top:12px}
+.cells i{width:34px;height:12px;border:1.5px solid var(--on-bodhi)}
+.cells i.on{background:var(--saffron);border-color:var(--saffron)}
+.today .actions{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.today .actions .btn{flex:1}
+
+/* Danh sách câu hỏi */
+.qlist{border-top:1.5px solid var(--ink)}
+.qrow{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;padding-block:12px;border-bottom:1px solid var(--rule);font-size:14.5px}
+.qrow::after{content:"";flex:none;width:9px;height:9px;border-top:2px solid var(--bodhi-text);border-right:2px solid var(--bodhi-text);transform:rotate(45deg);margin-right:3px}
+.qrow:active{background:var(--bodhi-soft)}
+
+/* Lưới kẻ khung */
+.grid2,.grid4{display:grid;border-top:1.5px solid var(--ink);border-left:1.5px solid var(--ink)}
+.grid2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.grid2 > *,.grid4 > *{border-right:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);background:var(--surface);min-width:0}
+.tool{display:flex;flex-direction:column;gap:6px;padding:14px;text-align:left}
+.tool:active{background:var(--bodhi-soft)}
+.tool svg{width:26px;height:26px;color:var(--bodhi-text)}
+.tool b{font-size:14.5px;line-height:1.3;font-weight:600}
+.tool span{font-size:12.5px;color:var(--muted);line-height:1.4}
+.spec{padding:10px 8px}
+.spec b{display:block;font-family:var(--f-cond);font-weight:700;font-size:27px;line-height:1.05;font-variant-numeric:tabular-nums}
+.spec span{font-size:11.5px;color:var(--muted);line-height:1.3;display:block}
+.dl > div{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;padding-block:10px;border-top:1px solid var(--rule);font-size:14px}
+.dl > div:first-child{border-top:1.5px solid var(--ink)}
+.dl .k{font-family:var(--f-cond);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-top:1px}
+
+/* Nhãn hộp có mã QR */
+.label{position:relative;overflow:hidden;background:var(--kraft);color:var(--kraft-ink);border:2px solid var(--kraft-ink);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;padding:16px;align-items:end}
+.label .txt{position:relative;z-index:1;min-width:0}
+.label .lab{color:inherit;opacity:.8}
+.label .bn{font-family:var(--f-display);font-size:31px;line-height:1.05;margin-top:6px}
+.label .bs{font-size:12.5px;margin-top:6px}
+.label .lot{display:inline-block;margin-top:10px;border:1.5px solid var(--kraft-ink);padding:2px 8px;font-family:var(--f-cond);font-weight:700;font-size:13px;letter-spacing:.08em;font-variant-numeric:tabular-nums}
+.label .wm{position:absolute;right:118px;bottom:-62px;width:120px;height:168px;color:var(--kraft-dark);opacity:.55;pointer-events:none}
+.qrbox{background:#FFFFFF;padding:6px;width:118px;position:relative;z-index:1;border:1.5px solid var(--kraft-ink)}
+.qrbox svg{display:block;width:100%;height:auto}
+.qrcap{font-family:var(--f-cond);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;text-align:center;color:#131A15;margin-top:3px}
+
+/* Thanh tab */
+.tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));background:var(--surface);border-top:2px solid var(--ink)}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;padding-block:8px 7px;font-family:var(--f-cond);font-weight:600;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);min-width:0;white-space:nowrap}
+.tab svg{width:22px;height:22px}
+.tab[aria-current="page"]{background:var(--bodhi);color:var(--on-bodhi)}
+
+/* Trò chuyện */
+.chat-head{display:flex;align-items:center;gap:12px;padding-block:10px;border-bottom:2px solid var(--ink);background:var(--surface)}
+.bot-av{width:42px;height:42px;background:var(--bodhi);display:grid;place-items:center;flex:none}
+.bot-av svg{width:19px;height:27px;color:var(--on-bodhi)}
+.who{flex:1;min-width:0}
+.who b{display:block;font-family:var(--f-display);font-weight:400;font-size:20px;line-height:1.15}
+.status{font-family:var(--f-cond);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border:1.5px solid var(--muted);color:var(--muted);white-space:nowrap}
+.status[data-mode="online"]{border-color:var(--bodhi-text);color:var(--bodhi-text)}
+.msgs{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding-block:14px}
+.msg{max-width:86%;padding:10px 13px;font-size:14.5px;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg.bot{align-self:flex-start;background:var(--surface);border:1.5px solid var(--ink)}
+.msg.user{align-self:flex-end;background:var(--bodhi);color:var(--on-bodhi)}
+.msg .note{display:block;margin-top:6px;font-size:11.5px;color:var(--muted);white-space:normal}
+.dots{display:inline-flex;gap:5px;padding:5px 0}
+.dots i{width:7px;height:7px;background:var(--muted);animation:blink 1.2s infinite}
+.dots i:nth-child(2){animation-delay:.2s}.dots i:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+.prompts{display:flex;gap:6px;overflow-x:auto;padding-block:8px 2px;scrollbar-width:none}
+.prompts::-webkit-scrollbar{display:none}
+.prompt{flex:none;border:1.5px solid var(--ink);background:var(--surface);padding:7px 11px;font-size:13px;white-space:nowrap}
+.composer{display:flex;padding-block:8px 4px}
+.composer input{flex:1;min-width:0;border:1.5px solid var(--ink);border-right:0;background:var(--surface);padding:11px 12px}
+.disclaim{font-size:11px;color:var(--muted);text-align:center;padding-bottom:8px}
+
+/* Lịch */
+.datehead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.count{font-family:var(--f-cond);font-weight:700;font-size:18px;letter-spacing:.04em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.notes{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.note-line{font-size:13px;background:var(--saffron-soft);border:1.5px solid var(--saffron);padding:8px 10px}
+.timeline{border-top:1.5px solid var(--ink);margin-top:12px}
+.slot{display:grid;grid-template-columns:58px minmax(0,1fr) 40px;gap:12px;align-items:start;padding-block:12px;border-bottom:1px solid var(--rule)}
+.slot .time{font-family:var(--f-cond);font-weight:700;font-size:23px;line-height:1;font-variant-numeric:tabular-nums}
+.slot.done .time{color:var(--bodhi-text)}
+.slot .body b{display:block;font-size:14.5px;font-weight:600}
+.slot .body p{font-size:13px;color:var(--muted)}
+.check{width:40px;height:40px;border:1.5px solid var(--ink);background:var(--surface);display:grid;place-items:center}
+.check svg{width:20px;height:20px;opacity:0}
+.check[aria-pressed="true"]{background:var(--bodhi);border-color:var(--bodhi);color:var(--on-bodhi)}
+.check[aria-pressed="true"] svg{opacity:1}
+.locked{background:var(--warn-soft);border:1.5px solid var(--warn);padding:14px;display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.locked b{color:var(--warn)}
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.day{display:flex;flex-direction:column;align-items:center;gap:6px;font-family:var(--f-cond);font-weight:600;font-size:13px;color:var(--muted)}
+.day .cups{display:flex;flex-direction:column-reverse;gap:3px}
+.day .cups i{width:22px;height:12px;background:var(--sunk);border:1px solid var(--rule)}
+.day .cups i.on{background:var(--bodhi-text);border-color:var(--bodhi-text)}
+.day.today-col{color:var(--ink)}
+.bar{height:10px;background:var(--sunk);border:1px solid var(--rule);margin-top:8px}
+.bar i{display:block;height:100%;background:var(--saffron)}
+.boxrow{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.stat{font-family:var(--f-cond);font-weight:700;font-size:44px;line-height:1;font-variant-numeric:tabular-nums}
+
+/* Xanh */
+.total{font-family:var(--f-cond);font-weight:700;font-size:62px;line-height:.9;font-variant-numeric:tabular-nums}
+.total small{font-size:18px;font-weight:600;color:var(--muted);letter-spacing:.02em}
+.stack{display:flex;flex-direction:column;gap:14px}
+.ctrl{display:flex;flex-direction:column;gap:6px}
+.ctrl .lbl{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:13px;font-weight:600}
+.ctrl output{font-family:var(--f-cond);font-weight:700;font-size:17px;font-variant-numeric:tabular-nums}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{border:1.5px solid var(--ink);background:var(--surface);padding:7px 11px;font-size:13px}
+.seg button[aria-pressed="true"]{background:var(--bodhi);border-color:var(--bodhi);color:var(--on-bodhi)}
+input[type=range]{width:100%;height:28px;background:transparent;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:4px;background:var(--ink)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;margin-top:-9px;background:var(--bodhi);border:2px solid var(--ink)}
+input[type=range]::-moz-range-track{height:4px;background:var(--ink)}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:0;background:var(--bodhi);border:2px solid var(--ink)}
+.stages{display:flex;flex-direction:column;gap:12px;border-top:1.5px solid var(--ink);padding-top:12px}
+.stage .row{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;align-items:baseline}
+.stage .row b{font-family:var(--f-cond);font-weight:700;font-size:16px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.stage .track{height:10px;background:var(--sunk);margin-top:5px}
+.stage .track i{display:block;height:100%;min-width:2px;background:var(--bodhi-text);transition:width .35s ease}
+.stage.hot .track i{background:var(--saffron)}
+.hotlbl{font-family:var(--f-cond);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:var(--saffron);color:var(--on-saffron);padding:1px 6px;margin-left:6px;white-space:nowrap}
+.advice{border:1.5px solid var(--bodhi-text);background:var(--bodhi-soft);padding:12px;display:flex;flex-direction:column;gap:8px}
+.advice ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:13.5px}
+details{font-size:13px;border-top:1px solid var(--rule);padding-top:10px}
+details summary{cursor:pointer;font-weight:600;color:var(--bodhi-text)}
+details .calc{margin-top:8px;display:flex;flex-direction:column;gap:6px;color:var(--muted)}
+.fact{display:grid;grid-template-columns:98px minmax(0,1fr);gap:12px;padding-block:10px;border-top:1px solid var(--rule);align-items:baseline}
+.fact:first-child{border-top:1.5px solid var(--ink)}
+.fact .n{font-family:var(--f-cond);font-weight:700;font-size:28px;line-height:1;font-variant-numeric:tabular-nums}
+.tile{padding:11px;text-align:left;font-size:13px;line-height:1.35}
+.tile:active{background:var(--bodhi-soft)}
+.binres{border:1.5px solid var(--ink);background:var(--surface);padding:12px;display:flex;flex-direction:column;gap:6px}
+.binchip{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px}
+.binchip i{width:14px;height:14px;flex:none}
+.binbars{display:flex;flex-direction:column;gap:8px}
+.binbar{display:grid;grid-template-columns:140px minmax(0,1fr) 28px;gap:8px;align-items:center;font-size:12.5px}
+.binbar .t{height:12px;background:var(--sunk)}
+.binbar .t i{display:block;height:100%;transition:width .35s ease}
+.binbar b{text-align:right;font-family:var(--f-cond);font-size:16px;font-variant-numeric:tabular-nums}
+
+/* Cửa hàng */
+.reorder{background:var(--saffron-soft);border:1.5px solid var(--saffron);padding:14px;display:flex;flex-direction:column;gap:6px}
+.plist{border-top:1.5px solid var(--ink)}
+.prod{display:grid;grid-template-columns:60px minmax(0,1fr) auto;gap:12px;align-items:center;padding-block:14px;border-bottom:1px solid var(--rule)}
+.prod svg{width:60px;height:60px}
+.prod .name{font-weight:600}
+.prod .sub{font-size:12.5px;color:var(--muted)}
+.prod .price{font-family:var(--f-cond);font-weight:700;font-size:19px;font-variant-numeric:tabular-nums}
+.ptag{display:inline-block;font-family:var(--f-cond);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:var(--bodhi);color:var(--on-bodhi);padding:1px 6px;margin-bottom:4px}
+.cartbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;border:2px solid var(--ink);background:var(--surface);padding:10px 12px;margin-top:16px}
+.cartbar .btn{white-space:nowrap}
+.cartbar .num{font-size:20px}
+
+/* Tấm trượt từ đáy */
+.sheet{position:fixed;inset:0;z-index:30;display:flex;align-items:flex-end;justify-content:center;background:rgba(10,16,12,.5)}
+.panel{width:100%;max-width:480px;max-height:92%;overflow-y:auto;background:var(--paper);border-top:3px solid var(--ink);
+  padding-top:16px;padding-bottom:calc(18px + env(safe-area-inset-bottom, 0px));
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));
+  display:flex;flex-direction:column;gap:14px}
+.panel > *{flex-shrink:0}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.x{width:40px;height:40px;border:1.5px solid var(--ink);font-size:22px;line-height:1;flex:none;display:grid;place-items:center;text-align:center}
+.field{display:flex;flex-direction:column;gap:6px}
+.field > label,.field > .flbl{font-size:13px;font-weight:600}
+.field input[type=text],.field input[type=number],.field select{border:1.5px solid var(--ink);background:var(--surface);padding:10px 12px;width:100%}
+.selwrap{position:relative}
+.selwrap::after{content:"";position:absolute;right:14px;top:50%;width:8px;height:8px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.opt span{display:block;border:1.5px solid var(--ink);padding:7px 11px;font-size:13px;background:var(--surface)}
+.opt input:checked + span{background:var(--bodhi);border-color:var(--bodhi);color:var(--on-bodhi)}
+.opt input:focus-visible + span{outline:2px solid var(--saffron);outline-offset:2px}
+.opt.warnopt input:checked + span{background:var(--warn);border-color:var(--warn);color:var(--surface)}
+
+/* Pha trà */
+.strength{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1.5px solid var(--ink);border-left:1.5px solid var(--ink)}
+.strength button{border-right:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);padding:8px 4px;font-size:13px;background:var(--surface);text-align:center}
+.strength button b{display:block;font-family:var(--f-cond);font-weight:700;font-size:18px;text-transform:uppercase;letter-spacing:.04em}
+.strength button[aria-pressed="true"]{background:var(--saffron);color:var(--on-saffron)}
+.cupwrap{display:grid;place-items:center}
+.cupwrap svg{width:100%;max-width:250px;height:auto}
+.clock{font-family:var(--f-cond);font-weight:700;font-size:66px;line-height:.9;text-align:center;font-variant-numeric:tabular-nums}
+.steam path{fill:none;stroke:var(--muted);stroke-width:3;stroke-linejoin:miter;opacity:0}
+.brewing .steam path{animation:steam 2.6s ease-in-out infinite}
+.brewing .steam path:nth-child(2){animation-delay:.8s}
+.brewing .steam path:nth-child(3){animation-delay:1.6s}
+@keyframes steam{0%{opacity:0;transform:translateY(8px)}40%{opacity:.6}100%{opacity:0;transform:translateY(-12px)}}
+.breath{display:grid;grid-template-columns:100px minmax(0,1fr);gap:14px;align-items:center;border:1.5px solid var(--bodhi-text);background:var(--bodhi-soft);padding:12px}
+.boxb{width:100px;height:100px;position:relative}
+.boxb svg{width:100%;height:100%;display:block}
+.boxb .frame{fill:none;stroke:var(--rule);stroke-width:4}
+.boxb .core{fill:var(--bodhi-text);opacity:.22;transform-box:fill-box;transform-origin:center;transform:scale(.45);transition:transform var(--d,4s) linear}
+.boxb[data-phase="in"] .core,.boxb[data-phase="hold1"] .core{transform:scale(1)}
+.boxb .trace{fill:none;stroke:var(--bodhi-text);stroke-width:4;stroke-dasharray:368;stroke-dashoffset:368}
+.boxb.run .trace{animation:trace 16s linear infinite}
+@keyframes trace{to{stroke-dashoffset:0}}
+.boxb .phase{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-cond);font-weight:700;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--bodhi-text);text-align:center}
+.breath b{display:block;font-size:15px;font-weight:600}
+.done-box{background:var(--bodhi-soft);border:1.5px solid var(--bodhi-text);padding:12px;display:flex;flex-direction:column;gap:10px}
+
+/* Quét lá */
+.viewfinder{position:relative;aspect-ratio:4/3;max-width:100%;background:var(--sunk);border:1.5px solid var(--ink);overflow:hidden}
+.vf-img{position:absolute;inset:0;display:grid;place-items:center}
+.vf-img img{width:100%;height:100%;object-fit:cover}
+.vf-img svg{width:32%;height:auto;color:var(--bodhi-text)}
+.vf-c{position:absolute;width:26px;height:26px;border:3px solid var(--saffron)}
+.vf-c.tl{top:10px;left:10px;border-right:0;border-bottom:0}
+.vf-c.tr{top:10px;right:10px;border-left:0;border-bottom:0}
+.vf-c.bl{bottom:10px;left:10px;border-right:0;border-top:0}
+.vf-c.br{bottom:10px;right:10px;border-left:0;border-top:0}
+.scanline{position:absolute;left:0;right:0;height:3px;background:var(--saffron);top:0;opacity:0}
+.scanning .scanline{opacity:1;animation:sweep 1.4s ease-in-out infinite alternate}
+@keyframes sweep{from{top:4%}to{top:94%}}
+.result{border:1.5px solid var(--ink);background:var(--surface);padding:12px;display:flex;flex-direction:column;gap:8px}
+.verdict{align-self:flex-start;font-family:var(--f-cond);font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px}
+.verdict.ok{background:var(--bodhi);color:var(--on-bodhi)}
+.verdict.no{background:var(--warn);color:var(--surface)}
+.kv{display:grid;grid-template-columns:104px minmax(0,1fr);gap:6px 10px;font-size:13.5px;margin:0}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0}
+.conf{height:6px;background:var(--sunk);margin-top:4px}
+.conf i{display:block;height:100%;background:var(--bodhi-text)}
+.badge-sim{font-family:var(--f-cond);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* Nguồn gốc */
+.trace-list{border-left:2px solid var(--ink);margin-left:6px}
+.step{display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px;padding:8px 0 8px 16px;position:relative}
+.step::before{content:"";position:absolute;left:-8px;top:12px;width:14px;height:14px;background:var(--bodhi);border:3px solid var(--paper)}
+.step .d{font-family:var(--f-cond);font-weight:700;font-size:16px;font-variant-numeric:tabular-nums}
+.step b{display:block;font-size:14px;font-weight:600}
+.step p{font-size:12.5px;color:var(--muted)}
+
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(88px + env(safe-area-inset-bottom, 0px));z-index:40;background:var(--ink);color:var(--paper);padding:10px 14px;font-size:13.5px;max-width:min(420px, calc(100% - 32px))}
+
+@media (prefers-reduced-motion: reduce){
+  .brewing .steam path,.dots i,.scanning .scanline,.boxb.run .trace{animation:none}
+  .brewing .steam path{opacity:.4}
+  .boxb .core,.stage .track i,.binbar .t i{transition:none}
+}
+
+/* ================= Giao diện mềm: bo góc ở thẻ, nút, bong bóng chat; thêm màu nhấn; thêm phông Nunito và Dancing Script ================= */
+:root{
+  --f-round:"Nunito", "Be Vietnam Pro", system-ui, sans-serif;
+  --f-script:"Dancing Script", "Prata", cursive;
+  --r-s:10px; --r-m:16px; --r-l:22px; --r-pill:999px;
+  --mint:#2F7D4F; --mint-soft:#DDF1E4;
+  --sky:#2F6FA8; --sky-soft:#DCEAF7;
+  --peach:#B4502F; --peach-soft:#FBE4DA;
+  --lav:#6A55A8; --lav-soft:#ECE6F8;
+  --honey:#9A6A06; --honey-soft:#F7E8C4;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --mint:#7CC896; --mint-soft:#183326; --sky:#8DBDE8; --sky-soft:#162636;
+    --peach:#F0A58C; --peach-soft:#3A2119; --lav:#B9A8EE; --lav-soft:#251F38;
+    --honey:#E9BF63; --honey-soft:#3A2C12;
+  }
+}
+:root[data-theme="dark"]{
+  --mint:#7CC896; --mint-soft:#183326; --sky:#8DBDE8; --sky-soft:#162636;
+  --peach:#F0A58C; --peach-soft:#3A2119; --lav:#B9A8EE; --lav-soft:#251F38;
+  --honey:#E9BF63; --honey-soft:#3A2C12;
+}
+
+/* Nút, chip: bo tròn hẳn, chữ Nunito */
+.btn{border-radius:var(--r-pill);font-family:var(--f-round);font-weight:800;font-size:14.5px;padding:9px 18px}
+.btn-out{border-color:var(--rule)}
+.linkbtn{font-family:var(--f-round);font-weight:800;font-size:13.5px;letter-spacing:0;text-transform:none}
+.prompt,.seg button,.opt span{border-radius:var(--r-pill);font-family:var(--f-round);font-weight:700;font-size:13.5px;border-color:transparent}
+.prompt:nth-child(4n+1){background:var(--mint-soft)}
+.prompt:nth-child(4n+2){background:var(--sky-soft)}
+.prompt:nth-child(4n+3){background:var(--lav-soft)}
+.prompt:nth-child(4n+4){background:var(--peach-soft)}
+.seg button,.opt span{background:var(--surface);border-color:var(--rule)}
+.status{border-radius:var(--r-pill);font-family:var(--f-round);font-weight:800;letter-spacing:0;text-transform:none;font-size:12px;border-width:1.5px}
+.ptag,.hotlbl,.verdict{border-radius:var(--r-pill);padding-inline:9px}
+
+/* Thanh trên: bo góc dưới, dòng phụ viết tay */
+.topbar{border-radius:0 0 var(--r-l) var(--r-l);position:relative;z-index:2}
+.brand-sub{font-family:var(--f-script);font-weight:700;font-size:17px;letter-spacing:0;text-transform:none;opacity:.92;line-height:1.1}
+.avatar{border-radius:50%;font-family:var(--f-round);font-weight:800;font-size:18px;background:rgba(255,255,255,.12)}
+
+/* Dải đã quét và khối hôm nay thành thẻ bo góc */
+.strip.g{width:calc(100% - 32px);margin:14px 16px 0;padding:11px 14px;border:0;border-radius:var(--r-m);background:var(--honey-soft)}
+.strip svg{color:var(--honey)}
+.strip .go{font-family:var(--f-round);font-weight:800;letter-spacing:0;text-transform:none;background:var(--surface);border-radius:var(--r-pill);padding:5px 11px;font-size:12.5px}
+.today.g{margin:12px 16px 0;border-radius:var(--r-l);padding:18px 16px 16px}
+.cells i{border-radius:var(--r-pill)}
+.today .btn-ghost-light{border-color:rgba(243,246,238,.7)}
+
+/* Tiêu đề mục nhẹ hơn */
+.head{border-top:1.5px solid var(--rule)}
+.h{color:var(--ink)}
+
+/* Câu hỏi nhanh: thẻ bo góc, mỗi câu một màu */
+.qlist{border-top:0;display:flex;flex-direction:column;gap:8px}
+.qrow{border:0;border-radius:var(--r-m);padding:12px 14px;font-family:var(--f-round);font-weight:700;font-size:14.5px;background:var(--surface)}
+.qrow:nth-child(5n+1){background:var(--mint-soft)}  .qrow:nth-child(5n+1)::after{border-color:var(--mint)}
+.qrow:nth-child(5n+2){background:var(--sky-soft)}   .qrow:nth-child(5n+2)::after{border-color:var(--sky)}
+.qrow:nth-child(5n+3){background:var(--lav-soft)}   .qrow:nth-child(5n+3)::after{border-color:var(--lav)}
+.qrow:nth-child(5n+4){background:var(--peach-soft)} .qrow:nth-child(5n+4)::after{border-color:var(--peach)}
+.qrow:nth-child(5n+5){background:var(--honey-soft)} .qrow:nth-child(5n+5)::after{border-color:var(--honey)}
+.qrow::after{border-top-width:2.5px;border-right-width:2.5px;border-radius:2px}
+
+/* Lưới công cụ và thông số: thẻ rời, bo góc, mỗi thẻ một màu */
+.grid2,.grid4{border:0;gap:10px}
+.grid4{gap:8px}
+.grid2 > *,.grid4 > *{border:0;border-radius:var(--r-m)}
+.tool{padding:15px 14px}
+.tool svg{width:30px;height:30px;padding:5px;border-radius:var(--r-s);background:var(--surface);stroke-linecap:round;stroke-linejoin:round}
+.tool b{font-family:var(--f-round);font-weight:800;font-size:15px}
+#btnLeaf{background:var(--mint-soft)} #btnLeaf svg{color:var(--mint)}
+.grid2 > .tool:nth-child(2){background:var(--sky-soft)} .grid2 > .tool:nth-child(2) svg{color:var(--sky)}
+.grid2 > .tool:nth-child(3){background:var(--peach-soft)} .grid2 > .tool:nth-child(3) svg{color:var(--peach)}
+.grid2 > .tool:nth-child(4){background:var(--lav-soft)} .grid2 > .tool:nth-child(4) svg{color:var(--lav)}
+.spec{padding:12px 8px;text-align:center}
+.grid4 > .spec:nth-child(1){background:var(--mint-soft)}  .grid4 > .spec:nth-child(1) b{color:var(--mint)}
+.grid4 > .spec:nth-child(2){background:var(--sky-soft)}   .grid4 > .spec:nth-child(2) b{color:var(--sky)}
+.grid4 > .spec:nth-child(3){background:var(--peach-soft)} .grid4 > .spec:nth-child(3) b{color:var(--peach)}
+.grid4 > .spec:nth-child(4){background:var(--lav-soft)}   .grid4 > .spec:nth-child(4) b{color:var(--lav)}
+#wasteTiles > *{background:var(--surface);border:1.5px solid var(--rule);font-family:var(--f-round);font-weight:700}
+.tile:active,.tool:active{filter:brightness(.96)}
+
+/* Nhãn hộp */
+.label{border-radius:var(--r-m)}
+.label .lot{border-radius:6px}
+.qrbox{border-radius:var(--r-s)}
+
+/* Thanh tab: viên thuốc màu riêng cho từng tab */
+.tabs{border-top:1.5px solid var(--rule);padding-top:4px}
+.tab{font-family:var(--f-round);font-weight:700;font-size:11.5px;letter-spacing:0;text-transform:none;gap:2px}
+.tab svg{width:52px;height:30px;padding:4px 15px;border-radius:var(--r-pill);stroke-linecap:round;stroke-linejoin:round}
+.tab[aria-current="page"]{background:transparent;color:var(--ink);font-weight:800}
+.tab[aria-current="page"][data-view="trang-chu"] svg{background:var(--mint-soft);color:var(--mint)}
+.tab[aria-current="page"][data-view="tro-ly"] svg{background:var(--lav-soft);color:var(--lav)}
+.tab[aria-current="page"][data-view="lich"] svg{background:var(--sky-soft);color:var(--sky)}
+.tab[aria-current="page"][data-view="xanh"] svg{background:var(--mint-soft);color:var(--mint)}
+.tab[aria-current="page"][data-view="cua-hang"] svg{background:var(--peach-soft);color:var(--peach)}
+
+/* Trò chuyện: bong bóng bo tròn, chữ Nunito */
+.chat-head{border-bottom:1.5px solid var(--rule)}
+.bot-av{border-radius:50%;background:var(--lav-soft)}
+.bot-av svg{color:var(--lav)}
+.who span{font-family:var(--f-script);font-weight:700;font-size:16.5px;color:var(--lav)}
+.msg{font-family:var(--f-round);font-weight:500;font-size:15px;line-height:1.5;border-radius:18px}
+.msg.bot{border:0;background:var(--surface);border-bottom-left-radius:6px;box-shadow:0 1px 0 var(--rule)}
+.msg.user{border-bottom-right-radius:6px}
+.dots i{border-radius:50%}
+.composer{gap:8px}
+.composer input{border-radius:var(--r-pill);border:1.5px solid var(--rule);padding:11px 16px}
+
+/* Lịch */
+.note-line{border-radius:var(--r-s);border:0;background:var(--honey-soft)}
+.check{border-radius:50%;border-color:var(--rule)}
+.locked{border-radius:var(--r-m)}
+.day .cups i{border-radius:4px}
+.bar,.bar i,.stage .track,.stage .track i,.binbar .t,.binbar .t i,.conf,.conf i{border-radius:var(--r-pill)}
+.bar{border:0}
+.slot .time{color:var(--sky)}
+.slot.done .time{color:var(--mint)}
+
+/* Xanh */
+.advice{border:0;border-radius:var(--r-m);background:var(--mint-soft)}
+.binres,.result,.done-box{border-radius:var(--r-m)}
+.binchip i{border-radius:50%}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:var(--r-pill);background:var(--rule)}
+input[type=range]::-webkit-slider-thumb{border-radius:50%;margin-top:-8px;border-color:var(--surface)}
+input[type=range]::-moz-range-track{height:6px;border-radius:var(--r-pill);background:var(--rule)}
+input[type=range]::-moz-range-thumb{border-radius:50%;border-color:var(--surface)}
+.fact .n{color:var(--peach)}
+
+/* Cửa hàng */
+.reorder{border:0;border-radius:var(--r-m);background:var(--peach-soft)}
+.cartbar{border-radius:var(--r-m);border-width:1.5px}
+.prod .price{color:var(--peach)}
+
+/* Tấm trượt: bo góc trên, có thanh kéo */
+.panel{border-top:0;border-radius:24px 24px 0 0}
+.panel::before{content:"";width:42px;height:5px;border-radius:var(--r-pill);background:var(--rule);align-self:center;margin:-6px 0 -4px}
+.x{border-radius:50%;border-color:var(--rule)}
+.field input[type=text],.field input[type=number],.field select{border-radius:var(--r-s);border-color:var(--rule)}
+.strength{border:0;gap:8px}
+.strength button{border:1.5px solid var(--rule);border-radius:var(--r-m);font-family:var(--f-round);font-weight:600}
+.strength button b{font-family:var(--f-round);font-weight:800;text-transform:none;letter-spacing:0;font-size:17px}
+.breath{border:0;border-radius:var(--r-m);background:var(--sky-soft)}
+.breath b{font-family:var(--f-script);font-weight:700;font-size:21px;color:var(--sky)}
+.boxb .frame{stroke-linejoin:round}
+.boxb .core{fill:var(--sky)}
+.boxb .trace{stroke:var(--sky);stroke-linecap:round}
+.boxb .phase{color:var(--sky)}
+.viewfinder{border-radius:var(--r-m);border-color:var(--rule)}
+.vf-c.tl{border-top-left-radius:12px}.vf-c.tr{border-top-right-radius:12px}
+.vf-c.bl{border-bottom-left-radius:12px}.vf-c.br{border-bottom-right-radius:12px}
+.scanline{border-radius:var(--r-pill)}
+.step::before{border-radius:50%}
+.toast{border-radius:var(--r-pill);font-family:var(--f-round);font-weight:700}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="leaf" viewBox="0 0 100 140">
+      <path d="M50 4 L50 24" style="stroke:currentColor" stroke-width="3" fill="none"/>
+      <path d="M50 22 C40 10 8 14 8 44 C8 66 32 84 46 104 C48 113 49 125 50 137 C51 125 52 113 54 104 C68 84 92 66 92 44 C92 14 60 10 50 22 Z" style="fill:currentColor"/>
+      <g style="stroke:var(--paper)" stroke-width="1.8" fill="none" opacity=".6">
+        <path d="M50 24 L50 116"/>
+        <path d="M50 36 L18 41"/><path d="M50 36 L82 41"/>
+        <path d="M50 52 L19 62"/><path d="M50 52 L81 62"/>
+        <path d="M50 68 L30 82"/><path d="M50 68 L70 82"/>
+      </g>
+    </symbol>
+    <symbol id="ic-check" viewBox="0 0 24 24"><path d="M4.5 12.5l5 5L19.5 7" fill="none" style="stroke:currentColor" stroke-width="2.8" stroke-linecap="square"/></symbol>
+  </defs>
+</svg>
+
+<div class="app">
+  <header class="topbar g">
+    <div class="brand">
+      <svg><use href="#leaf"/></svg>
+      <div><div class="brand-name">Trà An Diệp</div><div class="brand-sub">Chiếc lá bình an</div></div>
+    </div>
+    <button class="avatar" id="btnProfile" type="button" aria-label="Mở hồ sơ sức khỏe">M</button>
+  </header>
+
+  <main>
+    <!-- ============ TÚI TRÀ ============ -->
+    <section class="view" id="view-trang-chu" aria-label="Túi trà">
+      <div class="scroll">
+        <button class="strip g" type="button" id="btnOrigin">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4"/><rect x="8" y="8" width="3" height="3"/><rect x="13" y="8" width="3" height="3"/><rect x="8" y="13" width="3" height="3"/><path d="M13 13h3v3"/></svg>
+          <div><b>Đã quét hộp Trà An Diệp</b><span>Lô AD-2611 · Hộp 20 túi · HSD 11/2027</span></div>
+          <span class="go">Nguồn gốc</span>
+        </button>
+
+        <div class="today g" id="todayCard"></div>
+
+        <section class="sec g">
+          <div class="head"><h2 class="h">Hỏi An Diệp</h2><span class="lab">Trợ lý theo hộp trà</span></div>
+          <div class="qlist" id="homeQs"></div>
+        </section>
+
+        <section class="sec g">
+          <div class="head"><h2 class="h">Công cụ</h2><span class="lab">AI và sống xanh</span></div>
+          <div class="grid2">
+            <button class="tool" type="button" id="btnLeaf">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4"/><path d="M12 7c-3 0-4.5 2.2-4.5 4.4 0 2 1.6 3.4 4.5 5.6 2.9-2.2 4.5-3.6 4.5-5.6C16.5 9.2 15 7 12 7z"/><path d="M12 9v6"/></svg>
+              <b>Kiểm tra lá bằng AI</b><span>Chụp lá, AI nhận diện loài và độ đạt chuẩn</span>
+            </button>
+            <button class="tool" type="button" data-go="xanh" data-anchor="phan-loai">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square"><path d="M4 7h16M10 4h4M6.5 7l1 13h9l1-13"/><path d="M10 11v5M14 11v5"/></svg>
+              <b>Phân loại rác bằng AI</b><span>Chụp món rác, biết bỏ vào thùng nào</span>
+            </button>
+            <button class="tool" type="button" data-go="xanh">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square"><path d="M3 20h18"/><path d="M7 20v-6M12 20V8M17 20v-9"/></svg>
+              <b>Dấu chân carbon</b><span>Một tách trà thải bao nhiêu CO₂?</span>
+            </button>
+            <button class="tool" type="button" data-brew>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square"><path d="M5 9h11l-1 10H6z"/><path d="M16 11h3v4h-3.4"/><path d="M8 3v3M11 3v3"/></svg>
+              <b>Pha trà, thư giãn</b><span>Hẹn giờ hãm và thở hộp 4-4-4-4</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="sec g">
+          <div class="head"><h2 class="h">Trong túi trà</h2><span class="lab">Mỗi túi</span></div>
+          <div class="grid4">
+            <div class="spec"><b>2 g</b><span>lá bồ đề khô</span></div>
+            <div class="spec"><b>0</b><span>caffeine</span></div>
+            <div class="spec"><b>95°C</b><span>nước pha</span></div>
+            <div class="spec"><b>3–7′</b><span>thời gian hãm</span></div>
+          </div>
+          <p class="small muted" style="margin-top:10px">100% lá bồ đề (<i>Ficus religiosa</i>), chọn lá bánh tẻ, sấy ở 50°C. Không đường, không hương liệu.</p>
+        </section>
+
+        <section class="sec g">
+          <div class="head"><h2 class="h">Nói đúng về lá bồ đề</h2></div>
+          <div class="dl">
+            <div><span class="k">Dân gian</span><p>Vị chát, tính bình. Dùng để thanh nhiệt, giải độc, súc miệng khi viêm lợi.</p></div>
+            <div><span class="k">Nghiên cứu</span><p>Lá chứa phenolic, flavonoid, tanin. Khả năng chống oxy hóa, kháng khuẩn mới được ghi nhận ở phòng thí nghiệm và trên động vật, chưa có thử nghiệm trên người.</p></div>
+            <div><span class="k">Cam kết</span><p>An Diệp không nói trà chữa bệnh. Khi có dấu hiệu bất thường, trợ lý khuyên bạn đi khám.</p></div>
+          </div>
+        </section>
+
+        <section class="sec g">
+          <div class="head"><h2 class="h">Mặt hộp</h2><span class="lab">Quét để mở trợ lý</span></div>
+          <div class="label" aria-label="Mặt hộp trà có mã QR">
+            <svg class="wm"><use href="#leaf"/></svg>
+            <div class="txt">
+              <div class="lab">Trà túi lọc lá bồ đề</div>
+              <div class="bn">Trà<br>An Diệp</div>
+              <div class="bs">20 túi × 2 g · túi giấy, dây cotton, hộp kraft</div>
+              <div class="lot">LÔ AD-2611 · HSD 11/2027</div>
+              <div style="margin-top:10px"><button class="btn btn-out" type="button" id="btnQrSave" hidden>Tải mã QR</button></div>
+            </div>
+            <div class="qrbox"><svg role="img" aria-label="Mã QR mở trợ lý An Diệp" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 41" shape-rendering="crispEdges"><rect width="41" height="41" fill="#ffffff"/><path fill="#16231A" d="M4 4h1v1h-1zM5 4h1v1h-1zM6 4h1v1h-1zM7 4h1v1h-1zM8 4h1v1h-1zM9 4h1v1h-1zM10 4h1v1h-1zM13 4h1v1h-1zM15 4h1v1h-1zM19 4h1v1h-1zM20 4h1v1h-1zM22 4h1v1h-1zM23 4h1v1h-1zM24 4h1v1h-1zM27 4h1v1h-1zM30 4h1v1h-1zM31 4h1v1h-1zM32 4h1v1h-1zM33 4h1v1h-1zM34 4h1v1h-1zM35 4h1v1h-1zM36 4h1v1h-1zM4 5h1v1h-1zM10 5h1v1h-1zM14 5h1v1h-1zM15 5h1v1h-1zM16 5h1v1h-1zM19 5h1v1h-1zM20 5h1v1h-1zM22 5h1v1h-1zM28 5h1v1h-1zM30 5h1v1h-1zM36 5h1v1h-1zM4 6h1v1h-1zM6 6h1v1h-1zM7 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM13 6h1v1h-1zM18 6h1v1h-1zM19 6h1v1h-1zM24 6h1v1h-1zM25 6h1v1h-1zM30 6h1v1h-1zM32 6h1v1h-1zM33 6h1v1h-1zM34 6h1v1h-1zM36 6h1v1h-1zM4 7h1v1h-1zM6 7h1v1h-1zM7 7h1v1h-1zM8 7h1v1h-1zM10 7h1v1h-1zM12 7h1v1h-1zM14 7h1v1h-1zM19 7h1v1h-1zM22 7h1v1h-1zM25 7h1v1h-1zM26 7h1v1h-1zM28 7h1v1h-1zM30 7h1v1h-1zM32 7h1v1h-1zM33 7h1v1h-1zM34 7h1v1h-1zM36 7h1v1h-1zM4 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM8 8h1v1h-1zM10 8h1v1h-1zM12 8h1v1h-1zM13 8h1v1h-1zM18 8h1v1h-1zM19 8h1v1h-1zM20 8h1v1h-1zM21 8h1v1h-1zM24 8h1v1h-1zM25 8h1v1h-1zM26 8h1v1h-1zM30 8h1v1h-1zM32 8h1v1h-1zM33 8h1v1h-1zM34 8h1v1h-1zM36 8h1v1h-1zM4 9h1v1h-1zM10 9h1v1h-1zM12 9h1v1h-1zM14 9h1v1h-1zM15 9h1v1h-1zM16 9h1v1h-1zM18 9h1v1h-1zM22 9h1v1h-1zM23 9h1v1h-1zM25 9h1v1h-1zM26 9h1v1h-1zM28 9h1v1h-1zM30 9h1v1h-1zM36 9h1v1h-1zM4 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM7 10h1v1h-1zM8 10h1v1h-1zM9 10h1v1h-1zM10 10h1v1h-1zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM18 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM28 10h1v1h-1zM30 10h1v1h-1zM31 10h1v1h-1zM32 10h1v1h-1zM33 10h1v1h-1zM34 10h1v1h-1zM35 10h1v1h-1zM36 10h1v1h-1zM12 11h1v1h-1zM13 11h1v1h-1zM18 11h1v1h-1zM20 11h1v1h-1zM23 11h1v1h-1zM24 11h1v1h-1zM25 11h1v1h-1zM26 11h1v1h-1zM27 11h1v1h-1zM28 11h1v1h-1zM4 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM8 12h1v1h-1zM9 12h1v1h-1zM10 12h1v1h-1zM14 12h1v1h-1zM15 12h1v1h-1zM16 12h1v1h-1zM17 12h1v1h-1zM18 12h1v1h-1zM20 12h1v1h-1zM21 12h1v1h-1zM23 12h1v1h-1zM24 12h1v1h-1zM27 12h1v1h-1zM28 12h1v1h-1zM30 12h1v1h-1zM31 12h1v1h-1zM32 12h1v1h-1zM33 12h1v1h-1zM34 12h1v1h-1zM4 13h1v1h-1zM5 13h1v1h-1zM8 13h1v1h-1zM11 13h1v1h-1zM12 13h1v1h-1zM13 13h1v1h-1zM14 13h1v1h-1zM15 13h1v1h-1zM16 13h1v1h-1zM17 13h1v1h-1zM20 13h1v1h-1zM21 13h1v1h-1zM22 13h1v1h-1zM23 13h1v1h-1zM24 13h1v1h-1zM27 13h1v1h-1zM30 13h1v1h-1zM31 13h1v1h-1zM33 13h1v1h-1zM34 13h1v1h-1zM35 13h1v1h-1zM36 13h1v1h-1zM4 14h1v1h-1zM5 14h1v1h-1zM6 14h1v1h-1zM7 14h1v1h-1zM9 14h1v1h-1zM10 14h1v1h-1zM11 14h1v1h-1zM13 14h1v1h-1zM16 14h1v1h-1zM17 14h1v1h-1zM18 14h1v1h-1zM19 14h1v1h-1zM21 14h1v1h-1zM25 14h1v1h-1zM32 14h1v1h-1zM34 14h1v1h-1zM35 14h1v1h-1zM5 15h1v1h-1zM7 15h1v1h-1zM8 15h1v1h-1zM12 15h1v1h-1zM13 15h1v1h-1zM14 15h1v1h-1zM17 15h1v1h-1zM20 15h1v1h-1zM21 15h1v1h-1zM22 15h1v1h-1zM23 15h1v1h-1zM25 15h1v1h-1zM26 15h1v1h-1zM29 15h1v1h-1zM32 15h1v1h-1zM33 15h1v1h-1zM34 15h1v1h-1zM35 15h1v1h-1zM4 16h1v1h-1zM6 16h1v1h-1zM10 16h1v1h-1zM13 16h1v1h-1zM18 16h1v1h-1zM19 16h1v1h-1zM20 16h1v1h-1zM24 16h1v1h-1zM25 16h1v1h-1zM26 16h1v1h-1zM28 16h1v1h-1zM29 16h1v1h-1zM31 16h1v1h-1zM32 16h1v1h-1zM33 16h1v1h-1zM35 16h1v1h-1zM4 17h1v1h-1zM5 17h1v1h-1zM11 17h1v1h-1zM13 17h1v1h-1zM15 17h1v1h-1zM16 17h1v1h-1zM19 17h1v1h-1zM22 17h1v1h-1zM26 17h1v1h-1zM27 17h1v1h-1zM29 17h1v1h-1zM33 17h1v1h-1zM34 17h1v1h-1zM35 17h1v1h-1zM36 17h1v1h-1zM7 18h1v1h-1zM8 18h1v1h-1zM9 18h1v1h-1zM10 18h1v1h-1zM12 18h1v1h-1zM15 18h1v1h-1zM19 18h1v1h-1zM20 18h1v1h-1zM21 18h1v1h-1zM24 18h1v1h-1zM26 18h1v1h-1zM28 18h1v1h-1zM29 18h1v1h-1zM30 18h1v1h-1zM34 18h1v1h-1zM35 18h1v1h-1zM6 19h1v1h-1zM7 19h1v1h-1zM9 19h1v1h-1zM14 19h1v1h-1zM15 19h1v1h-1zM18 19h1v1h-1zM19 19h1v1h-1zM22 19h1v1h-1zM25 19h1v1h-1zM27 19h1v1h-1zM29 19h1v1h-1zM30 19h1v1h-1zM31 19h1v1h-1zM33 19h1v1h-1zM34 19h1v1h-1zM7 20h1v1h-1zM8 20h1v1h-1zM9 20h1v1h-1zM10 20h1v1h-1zM13 20h1v1h-1zM15 20h1v1h-1zM17 20h1v1h-1zM18 20h1v1h-1zM19 20h1v1h-1zM21 20h1v1h-1zM24 20h1v1h-1zM26 20h1v1h-1zM27 20h1v1h-1zM29 20h1v1h-1zM31 20h1v1h-1zM32 20h1v1h-1zM33 20h1v1h-1zM36 20h1v1h-1zM4 21h1v1h-1zM6 21h1v1h-1zM8 21h1v1h-1zM13 21h1v1h-1zM14 21h1v1h-1zM15 21h1v1h-1zM16 21h1v1h-1zM19 21h1v1h-1zM20 21h1v1h-1zM22 21h1v1h-1zM23 21h1v1h-1zM24 21h1v1h-1zM25 21h1v1h-1zM27 21h1v1h-1zM30 21h1v1h-1zM31 21h1v1h-1zM33 21h1v1h-1zM34 21h1v1h-1zM35 21h1v1h-1zM4 22h1v1h-1zM5 22h1v1h-1zM6 22h1v1h-1zM7 22h1v1h-1zM10 22h1v1h-1zM11 22h1v1h-1zM12 22h1v1h-1zM13 22h1v1h-1zM16 22h1v1h-1zM17 22h1v1h-1zM18 22h1v1h-1zM19 22h1v1h-1zM20 22h1v1h-1zM22 22h1v1h-1zM24 22h1v1h-1zM25 22h1v1h-1zM29 22h1v1h-1zM31 22h1v1h-1zM32 22h1v1h-1zM34 22h1v1h-1zM35 22h1v1h-1zM13 23h1v1h-1zM15 23h1v1h-1zM16 23h1v1h-1zM20 23h1v1h-1zM25 23h1v1h-1zM26 23h1v1h-1zM28 23h1v1h-1zM31 23h1v1h-1zM32 23h1v1h-1zM33 23h1v1h-1zM34 23h1v1h-1zM35 23h1v1h-1zM36 23h1v1h-1zM6 24h1v1h-1zM10 24h1v1h-1zM11 24h1v1h-1zM12 24h1v1h-1zM15 24h1v1h-1zM22 24h1v1h-1zM26 24h1v1h-1zM28 24h1v1h-1zM29 24h1v1h-1zM32 24h1v1h-1zM33 24h1v1h-1zM35 24h1v1h-1zM4 25h1v1h-1zM8 25h1v1h-1zM11 25h1v1h-1zM12 25h1v1h-1zM13 25h1v1h-1zM14 25h1v1h-1zM15 25h1v1h-1zM17 25h1v1h-1zM18 25h1v1h-1zM19 25h1v1h-1zM20 25h1v1h-1zM24 25h1v1h-1zM25 25h1v1h-1zM27 25h1v1h-1zM29 25h1v1h-1zM30 25h1v1h-1zM31 25h1v1h-1zM33 25h1v1h-1zM34 25h1v1h-1zM36 25h1v1h-1zM4 26h1v1h-1zM6 26h1v1h-1zM7 26h1v1h-1zM9 26h1v1h-1zM10 26h1v1h-1zM11 26h1v1h-1zM16 26h1v1h-1zM17 26h1v1h-1zM22 26h1v1h-1zM23 26h1v1h-1zM25 26h1v1h-1zM28 26h1v1h-1zM33 26h1v1h-1zM35 26h1v1h-1zM4 27h1v1h-1zM9 27h1v1h-1zM11 27h1v1h-1zM12 27h1v1h-1zM15 27h1v1h-1zM17 27h1v1h-1zM20 27h1v1h-1zM23 27h1v1h-1zM24 27h1v1h-1zM25 27h1v1h-1zM26 27h1v1h-1zM27 27h1v1h-1zM29 27h1v1h-1zM30 27h1v1h-1zM31 27h1v1h-1zM33 27h1v1h-1zM34 27h1v1h-1zM35 27h1v1h-1zM4 28h1v1h-1zM7 28h1v1h-1zM9 28h1v1h-1zM10 28h1v1h-1zM11 28h1v1h-1zM14 28h1v1h-1zM15 28h1v1h-1zM16 28h1v1h-1zM21 28h1v1h-1zM23 28h1v1h-1zM26 28h1v1h-1zM28 28h1v1h-1zM29 28h1v1h-1zM30 28h1v1h-1zM31 28h1v1h-1zM32 28h1v1h-1zM34 28h1v1h-1zM12 29h1v1h-1zM15 29h1v1h-1zM21 29h1v1h-1zM22 29h1v1h-1zM23 29h1v1h-1zM24 29h1v1h-1zM28 29h1v1h-1zM32 29h1v1h-1zM34 29h1v1h-1zM35 29h1v1h-1zM36 29h1v1h-1zM4 30h1v1h-1zM5 30h1v1h-1zM6 30h1v1h-1zM7 30h1v1h-1zM8 30h1v1h-1zM9 30h1v1h-1zM10 30h1v1h-1zM15 30h1v1h-1zM16 30h1v1h-1zM17 30h1v1h-1zM18 30h1v1h-1zM19 30h1v1h-1zM21 30h1v1h-1zM24 30h1v1h-1zM25 30h1v1h-1zM27 30h1v1h-1zM28 30h1v1h-1zM30 30h1v1h-1zM32 30h1v1h-1zM34 30h1v1h-1zM35 30h1v1h-1zM4 31h1v1h-1zM10 31h1v1h-1zM12 31h1v1h-1zM13 31h1v1h-1zM14 31h1v1h-1zM15 31h1v1h-1zM16 31h1v1h-1zM19 31h1v1h-1zM20 31h1v1h-1zM21 31h1v1h-1zM22 31h1v1h-1zM23 31h1v1h-1zM24 31h1v1h-1zM25 31h1v1h-1zM26 31h1v1h-1zM27 31h1v1h-1zM28 31h1v1h-1zM32 31h1v1h-1zM33 31h1v1h-1zM34 31h1v1h-1zM35 31h1v1h-1zM36 31h1v1h-1zM4 32h1v1h-1zM6 32h1v1h-1zM7 32h1v1h-1zM8 32h1v1h-1zM10 32h1v1h-1zM12 32h1v1h-1zM13 32h1v1h-1zM15 32h1v1h-1zM16 32h1v1h-1zM17 32h1v1h-1zM18 32h1v1h-1zM19 32h1v1h-1zM20 32h1v1h-1zM23 32h1v1h-1zM25 32h1v1h-1zM26 32h1v1h-1zM28 32h1v1h-1zM29 32h1v1h-1zM30 32h1v1h-1zM31 32h1v1h-1zM32 32h1v1h-1zM33 32h1v1h-1zM35 32h1v1h-1zM4 33h1v1h-1zM6 33h1v1h-1zM7 33h1v1h-1zM8 33h1v1h-1zM10 33h1v1h-1zM12 33h1v1h-1zM14 33h1v1h-1zM16 33h1v1h-1zM18 33h1v1h-1zM19 33h1v1h-1zM22 33h1v1h-1zM28 33h1v1h-1zM29 33h1v1h-1zM32 33h1v1h-1zM33 33h1v1h-1zM35 33h1v1h-1zM36 33h1v1h-1zM4 34h1v1h-1zM6 34h1v1h-1zM7 34h1v1h-1zM8 34h1v1h-1zM10 34h1v1h-1zM12 34h1v1h-1zM13 34h1v1h-1zM16 34h1v1h-1zM19 34h1v1h-1zM20 34h1v1h-1zM21 34h1v1h-1zM22 34h1v1h-1zM25 34h1v1h-1zM27 34h1v1h-1zM30 34h1v1h-1zM31 34h1v1h-1zM34 34h1v1h-1zM4 35h1v1h-1zM10 35h1v1h-1zM13 35h1v1h-1zM14 35h1v1h-1zM19 35h1v1h-1zM25 35h1v1h-1zM26 35h1v1h-1zM27 35h1v1h-1zM30 35h1v1h-1zM32 35h1v1h-1zM33 35h1v1h-1zM34 35h1v1h-1zM4 36h1v1h-1zM5 36h1v1h-1zM6 36h1v1h-1zM7 36h1v1h-1zM8 36h1v1h-1zM9 36h1v1h-1zM10 36h1v1h-1zM12 36h1v1h-1zM13 36h1v1h-1zM14 36h1v1h-1zM17 36h1v1h-1zM19 36h1v1h-1zM20 36h1v1h-1zM21 36h1v1h-1zM23 36h1v1h-1zM28 36h1v1h-1zM29 36h1v1h-1zM31 36h1v1h-1zM33 36h1v1h-1zM34 36h1v1h-1zM35 36h1v1h-1z"/></svg><div class="qrcap">Quét mở trợ lý</div></div>
+          </div>
+        </section>
+
+        <section class="sec g">
+          <div class="head"><h2 class="h">Uống xong, xử lý thế nào?</h2></div>
+          <ol class="abc small">
+            <li><b>a)</b><span>Bã trà và túi lọc giấy không tẩy trắng: ủ phân hoặc vùi vào gốc cây.</span></li>
+            <li><b>b)</b><span>Dây buộc bằng cotton, không ghim kim loại: phân hủy cùng túi.</span></li>
+            <li><b>c)</b><span>Hộp giấy kraft in mực gốc nước: bỏ vào thùng rác tái chế.</span></li>
+          </ol>
+        </section>
+
+        <p class="foot g">Bản demo dự án sinh viên. Thông tin chỉ để tham khảo, không thay thế tư vấn của bác sĩ.</p>
+      </div>
+    </section>
+
+    <!-- ============ TRỢ LÝ ============ -->
+    <section class="view" id="view-tro-ly" aria-label="Trợ lý An Diệp" hidden>
+      <div class="chat-head g">
+        <div class="bot-av"><svg><use href="#leaf"/></svg></div>
+        <div class="who"><b>An Diệp</b><span class="small muted">Trợ lý sức khỏe của hộp trà</span></div>
+        <span class="status" id="status" data-mode="connecting">Đang kết nối</span>
+      </div>
+      <div class="msgs g" id="msgs" aria-live="polite"></div>
+      <div class="prompts g" id="chatChips"></div>
+      <form class="composer g" id="composer" autocomplete="off">
+        <input id="chatInput" type="text" placeholder="Hỏi về trà, giờ uống, lưu ý…" aria-label="Câu hỏi cho An Diệp">
+        <button class="btn btn-pri" id="chatSend" type="submit">Gửi</button>
+      </form>
+      <p class="disclaim g">An Diệp cung cấp thông tin tham khảo, không thay thế bác sĩ.</p>
+    </section>
+
+    <!-- ============ LỊCH ============ -->
+    <section class="view" id="view-lich" aria-label="Lịch uống" hidden>
+      <div class="scroll" id="planScroll"></div>
+    </section>
+
+    <!-- ============ XANH ============ -->
+    <section class="view" id="view-xanh" aria-label="Sống xanh" hidden>
+      <div class="scroll">
+        <section class="sec g stack">
+          <div class="head" style="margin-bottom:0"><h2 class="h">Dấu chân carbon một tách</h2><span class="lab">LCA</span></div>
+          <div><div class="total" id="lcaTotal">0 <small>g CO₂e / tách</small></div><p class="small muted" id="lcaYear" style="margin-top:8px"></p></div>
+
+          <div class="ctrl"><div class="lbl"><label for="lcaWater">Nước đun cho mỗi tách</label><output id="lcaWaterOut" for="lcaWater">500 ml</output></div>
+            <input id="lcaWater" type="range" min="200" max="1000" step="50" value="500"></div>
+          <div class="ctrl"><div class="lbl">Cách đun nước</div><div class="seg" data-key="heat"><button type="button" data-v="elec">Ấm điện</button><button type="button" data-v="gas">Bếp gas</button></div></div>
+          <div class="ctrl"><div class="lbl">Sấy lá ở xưởng</div><div class="seg" data-key="dry"><button type="button" data-v="elec">Máy sấy điện</button><button type="button" data-v="solar">Sấy kết hợp mặt trời</button></div></div>
+          <div class="ctrl"><div class="lbl">Cách nhận hàng</div><div class="seg" data-key="ship"><button type="button" data-v="single">Giao lẻ 1 hộp</button><button type="button" data-v="monthly">Gói tháng 60 túi</button><button type="button" data-v="store">Mua tại điểm bán</button></div></div>
+          <div class="ctrl"><div class="lbl">Bã trà sau khi uống</div><div class="seg" data-key="eol"><button type="button" data-v="compost">Ủ phân</button><button type="button" data-v="landfill">Bỏ rác chung</button></div></div>
+
+          <div class="stages" id="lcaStages" role="list" aria-label="Phát thải theo từng khâu"></div>
+
+          <div class="advice">
+            <div class="lab" style="color:var(--bodhi-text)">An Diệp tìm điểm nóng phát thải</div>
+            <ol id="lcaAdvice"></ol>
+            <button class="btn btn-pri" type="button" id="lcaAsk">Nhờ An Diệp phân tích</button>
+          </div>
+
+          <details>
+            <summary>Cách tính và nguồn số liệu</summary>
+            <div class="calc">
+              <p>a) Đun nước: Q = m · c · ΔT, với c = 4,186 kJ/(kg·K), nước máy 28°C lên 100°C. Ấm điện hiệu suất 80%; bếp gas hiệu suất 45%, khí LPG 63,1 g CO₂/MJ (chỉ tính phần đốt).</p>
+              <p>b) Điện lưới Việt Nam: 0,681 kg CO₂e/kWh (năm 2024, ĐH Bách khoa Hà Nội cùng Bộ Nông nghiệp và Môi trường).</p>
+              <p>c) Sấy lá: bốc hơi khoảng 3,3 g nước cho mỗi túi 2 g lá khô, máy sấy hiệu suất 35%, khoảng 0,0067 kWh/túi. Sấy kết hợp mặt trời giả định thay 70% điện.</p>
+              <p>d) Giao hàng: xe máy 5 km, khoảng 46 g CO₂/km (2 lít xăng/100 km × 2,3 kg CO₂/lít), chia cho số túi mỗi lần giao.</p>
+              <p>e) Bao bì giấy, chế biến và xử lý bã là ước tính của nhóm. Mọi số liệu chỉ để minh họa phương pháp, chưa phải LCA đã kiểm định.</p>
+            </div>
+          </details>
+        </section>
+
+        <section class="sec g">
+          <div class="head"><h2 class="h">Vì sao bỏ túi lọc nylon</h2><span class="lab">Bao bì không nhựa</span></div>
+          <div>
+            <div class="fact"><div class="n">11,6 tỉ</div><p class="small">hạt vi nhựa và 3,1 tỉ hạt nano nhựa có thể thoát ra từ một túi lọc nhựa khi ngâm nước ở nhiệt độ pha trà (nghiên cứu của ĐH McGill, Canada, 2019).</p></div>
+            <div class="fact"><div class="n">≈ 26 g</div><p class="small">nhựa được bớt cho mỗi hộp 20 túi, so với loại dùng túi lưới nylon và bao nhựa riêng từng túi (ước tính của nhóm).</p></div>
+            <div class="fact"><div class="n">0</div><p class="small">ghim kim loại, màng co hay lớp tráng nhựa trên túi, dây và hộp Trà An Diệp.</p></div>
+          </div>
+        </section>
+
+        <section class="sec g stack" id="phan-loai">
+          <div class="head" style="margin-bottom:0"><h2 class="h">Phân loại rác bằng AI</h2><span class="lab">Thị giác máy tính</span></div>
+          <p class="small muted">Chụp một món rác để AI chỉ đúng thùng, hoặc chọn nhanh bên dưới.</p>
+          <div class="row2" id="wastePhotoRow" hidden>
+            <label class="btn btn-pri" for="wasteFile">Chụp món rác</label>
+            <input class="vh" id="wasteFile" type="file" accept="image/*" capture="environment">
+          </div>
+          <div class="grid2" id="wasteTiles"></div>
+          <div id="wasteResult" aria-live="polite"></div>
+          <div>
+            <div class="boxrow"><h3 class="lab" style="color:var(--ink)">Thống kê 7 ngày của bạn</h3><button class="linkbtn" type="button" id="wasteReset">Xóa</button></div>
+            <p class="small muted" id="wasteSummary" style="margin:4px 0 10px"></p>
+            <div class="binbars" id="wasteBars"></div>
+          </div>
+          <p class="small muted">Nhóm rác theo Luật Bảo vệ môi trường 2020: rác tái chế, rác thực phẩm, rác còn lại. Rác nguy hại như pin, bóng đèn được thu gom riêng.</p>
+        </section>
+      </div>
+    </section>
+
+    <!-- ============ CỬA HÀNG ============ -->
+    <section class="view" id="view-cua-hang" aria-label="Cửa hàng" hidden>
+      <div class="scroll" id="shopScroll"></div>
+    </section>
+  </main>
+
+  <nav class="tabs" aria-label="Điều hướng">
+    <button class="tab" type="button" data-view="trang-chu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="miter"><path d="M4 11l8-6 8 6v9h-5v-5H9v5H4z"/></svg>Túi trà</button>
+    <button class="tab" type="button" data-view="tro-ly"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="miter"><path d="M4 5h16v11h-9l-4 3v-3H4z"/><path d="M8 10.5h1.5M11.25 10.5h1.5M14.5 10.5H16" stroke-width="2.2"/></svg>An Diệp</button>
+    <button class="tab" type="button" data-view="lich"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="miter"><path d="M4 5h16v15H4z"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Lịch</button>
+    <button class="tab" type="button" data-view="xanh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="miter"><path d="M5 19c0-8 5-13 14-14-1 9-6 14-14 14z"/><path d="M5 19l7-7"/></svg>Xanh</button>
+    <button class="tab" type="button" data-view="cua-hang"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="miter"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V5h6v3"/></svg>Cửa hàng</button>
+  </nav>
+</div>
+
+<!-- Pha trà -->
+<div class="sheet" id="sheetBrew" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="brewTitle">
+    <div class="panel-head"><h2 class="h" id="brewTitle">Pha trà, thư giãn</h2><button class="x" type="button" data-close aria-label="Đóng">×</button></div>
+    <p class="small muted">1 túi · 200 ml nước vừa sôi (95–100°C) · đậy nắp khi hãm.</p>
+    <div class="strength" id="strength">
+      <button type="button" data-sec="180"><b>Nhạt</b>3 phút</button>
+      <button type="button" data-sec="300" aria-pressed="true"><b>Vừa</b>5 phút</button>
+      <button type="button" data-sec="420"><b>Đậm</b>7 phút</button>
+    </div>
+    <div class="cupwrap" id="cupwrap">
+      <svg viewBox="0 0 260 200" role="img" aria-label="Ly trà đang hãm">
+        <defs><clipPath id="cupclip"><polygon points="72,44 188,44 176,176 84,176"/></clipPath></defs>
+        <g class="steam"><path d="M104 36 l6 -8 l-6 -8 l6 -8"/><path d="M130 36 l6 -8 l-6 -8 l6 -8"/><path d="M156 36 l6 -8 l-6 -8 l6 -8"/></g>
+        <rect x="50" y="180" width="160" height="8" style="fill:var(--rule)"/>
+        <g clip-path="url(#cupclip)">
+          <rect x="60" y="40" width="140" height="140" style="fill:var(--surface)"/>
+          <rect id="liquid" x="60" y="70" width="140" height="110" fill="#E9E1B4"/>
+          <rect x="112" y="98" width="34" height="42" fill="#F4EEDD" opacity=".55" transform="rotate(-6 129 119)"/>
+        </g>
+        <polygon points="72,44 188,44 176,176 84,176" fill="none" style="stroke:var(--ink)" stroke-width="3" stroke-linejoin="miter"/>
+        <polyline points="129,100 129,50 152,24 200,24" fill="none" style="stroke:var(--muted)" stroke-width="1.5"/>
+        <rect x="200" y="24" width="34" height="42" style="fill:var(--kraft);stroke:var(--ink)" stroke-width="2"/>
+        <g transform="translate(209 31)" style="color:var(--bodhi)"><use href="#leaf" width="16" height="22"/></g>
+      </svg>
+    </div>
+    <div class="clock" id="clock">05:00</div>
+    <div class="bar" style="margin-top:0"><i id="brewBar" style="width:0%"></i></div>
+    <div class="row2">
+      <button class="btn btn-pri" id="brewStart" type="button">Bắt đầu hãm</button>
+      <button class="btn btn-out" id="brewFast" type="button" aria-pressed="false">Tua nhanh ×10</button>
+    </div>
+    <div class="breath">
+      <div class="boxb" id="boxb" data-phase="hold2">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <rect class="frame" x="4" y="4" width="92" height="92"/>
+          <rect class="core" x="14" y="14" width="72" height="72"/>
+          <path class="trace" d="M4 4H96V96H4Z"/>
+        </svg>
+        <span class="phase" id="orbTxt">Sẵn sàng</span>
+      </div>
+      <div><b>Thở hộp cùng An Diệp</b><p class="small muted" id="breathTxt">Trong lúc chờ trà ngấm: hít vào 4 giây, giữ 4 giây, thở ra 4 giây, giữ 4 giây.</p></div>
+    </div>
+    <div class="done-box" id="brewDone" hidden>
+      <b>Trà đã ngấm. Nhấc túi ra để trà không quá chát.</b>
+      <p class="small">Túi này pha thêm được 1 lần nữa, hãm lâu hơn 2 phút.</p>
+      <div class="row2"><button class="btn btn-pri" id="brewLog" type="button">Ghi vào lịch hôm nay</button><button class="btn btn-out" data-close type="button">Để sau</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- Kiểm tra lá -->
+<div class="sheet" id="sheetLeaf" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="leafTitle">
+    <div class="panel-head"><h2 class="h" id="leafTitle">Kiểm tra lá bằng AI</h2><button class="x" type="button" data-close aria-label="Đóng">×</button></div>
+    <p class="small muted">Ở xưởng, camera chụp từng lá trên băng chuyền để loại lá sâu, lá héo. Bạn có thể thử với một lá bất kỳ.</p>
+    <div class="viewfinder" id="scanbox">
+      <div class="vf-img" id="vfImg"><svg viewBox="0 0 100 140"><use href="#leaf"/></svg></div>
+      <i class="vf-c tl"></i><i class="vf-c tr"></i><i class="vf-c bl"></i><i class="vf-c br"></i>
+      <div class="scanline"></div>
+    </div>
+    <div class="row2">
+      <label class="btn btn-pri" for="leafFile" id="leafPickLbl" hidden>Chụp hoặc chọn ảnh lá</label>
+      <input class="vh" id="leafFile" type="file" accept="image/*" capture="environment">
+      <button class="btn btn-out" type="button" id="leafDemo">Xem quét mẫu</button>
+    </div>
+    <p class="small muted" id="leafNote"></p>
+    <div id="leafResult" aria-live="polite"></div>
+    <div>
+      <div class="head" style="margin-bottom:6px"><h3 class="lab" style="color:var(--ink)">Hợp chất trong lá bồ đề</h3><span class="lab">Theo tài liệu</span></div>
+      <ol class="abc small">
+        <li><b>a)</b><span>Phenolic và flavonoid: có khả năng chống oxy hóa trong thí nghiệm.</span></li>
+        <li><b>b)</b><span>Tanin: tạo vị chát; uống quá nhiều dễ khó tiêu, táo bón.</span></li>
+        <li><b>c)</b><span>Phytosterol: ghi nhận ở nhiều bộ phận của cây bồ đề.</span></li>
+      </ol>
+      <p class="small muted" style="margin-top:8px">AI chỉ đánh giá hình dạng, màu sắc lá qua ảnh. Hàm lượng hoạt chất thật phải đo trong phòng thí nghiệm, ví dụ phương pháp Folin–Ciocalteu cho polyphenol.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Nguồn gốc -->
+<div class="sheet" id="sheetOrigin" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="originTitle">
+    <div class="panel-head"><h2 class="h" id="originTitle">Hành trình lô AD-2611</h2><button class="x" type="button" data-close aria-label="Đóng">×</button></div>
+    <div class="trace-list">
+      <div class="step"><div class="d">26/10</div><div><b>Thu hái lá bánh tẻ</b><p>Hái tay từ cây bồ đề sẵn có, không bón phân, không phun thuốc.</p></div></div>
+      <div class="step"><div class="d">26/10</div><div><b>Rửa và chọn lá bằng AI</b><p>Camera nhận diện, loại lá sâu, lá đốm, lá héo trước khi sấy.</p></div></div>
+      <div class="step"><div class="d">27/10</div><div><b>Sấy 50°C trong 6 giờ</b><p>Máy sấy kết hợp năng lượng mặt trời, độ ẩm sau sấy dưới 10%.</p></div></div>
+      <div class="step"><div class="d">29/10</div><div><b>Nghiền, đóng túi giấy</b><p>Túi lọc sợi thực vật, dây cotton, hộp kraft in mực gốc nước.</p></div></div>
+      <div class="step"><div class="d">31/10</div><div><b>Kiểm tra chất lượng</b><p>Kiểm tra độ ẩm, cảm quan và vi sinh trước khi xuất kho.</p></div></div>
+      <div class="step"><div class="d">02/11</div><div><b>Xuất kho, giao đến bạn</b><p>Dấu chân carbon ước tính đến tay bạn: <span id="originCarbon">…</span>.</p></div></div>
+    </div>
+    <p class="small muted">Dữ liệu mẫu cho bản demo. Sản phẩm thật sẽ ghi theo nhật ký sản xuất của từng lô.</p>
+    <button class="btn btn-out" type="button" data-go="xanh">Xem dấu chân carbon chi tiết</button>
+  </div>
+</div>
+
+<!-- Hồ sơ -->
+<div class="sheet" id="sheetProfile" hidden>
+  <form class="panel" id="profileForm" role="dialog" aria-modal="true" aria-labelledby="pfTitle">
+    <div class="panel-head"><h2 class="h" id="pfTitle">Hồ sơ sức khỏe</h2><button class="x" type="button" data-close aria-label="Đóng">×</button></div>
+    <p class="small muted" id="pfSampleNote">Đang dùng hồ sơ mẫu. Nhập thông tin của bạn để An Diệp lên lịch riêng.</p>
+    <div class="field"><label for="pfName">An Diệp nên gọi bạn là</label><input id="pfName" type="text" maxlength="24"></div>
+    <div class="field"><span class="flbl">Bạn uống trà để</span>
+      <div class="opts">
+        <label class="opt"><input type="checkbox" id="g-heat"><span>Giải nhiệt mùa nóng</span></label>
+        <label class="opt"><input type="checkbox" id="g-digest"><span>Nhẹ bụng sau bữa ăn</span></label>
+        <label class="opt"><input type="checkbox" id="g-sleep"><span>Thư giãn trước khi ngủ</span></label>
+        <label class="opt"><input type="checkbox" id="g-sugar"><span>Bớt nước ngọt, trà sữa</span></label>
+      </div>
+    </div>
+    <div class="field"><span class="flbl">Số túi mỗi ngày</span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="pfCups" id="c1" value="1"><span>1 túi</span></label>
+        <label class="opt"><input type="radio" name="pfCups" id="c2" value="2"><span>2 túi</span></label>
+        <label class="opt"><input type="radio" name="pfCups" id="c3" value="3"><span>3 túi (tối đa)</span></label>
+      </div>
+    </div>
+    <div class="field"><label for="pfBed">Giờ đi ngủ thường ngày</label>
+      <div class="selwrap"><select id="pfBed"><option>21:00</option><option>21:30</option><option>22:00</option><option>22:30</option><option>23:00</option><option>23:30</option><option>00:00</option><option>00:30</option><option>01:00</option></select></div>
+    </div>
+    <div class="field"><span class="flbl">Lưu ý sức khỏe (nếu có)</span>
+      <div class="opts">
+        <label class="opt warnopt"><input type="checkbox" id="f-pregnant"><span>Đang mang thai / cho con bú</span></label>
+        <label class="opt warnopt"><input type="checkbox" id="f-meds"><span>Đang dùng thuốc điều trị</span></label>
+        <label class="opt warnopt"><input type="checkbox" id="f-stomach"><span>Dạ dày nhạy cảm</span></label>
+        <label class="opt warnopt"><input type="checkbox" id="f-allergy"><span>Từng dị ứng nhựa cây họ Sung</span></label>
+      </div>
+    </div>
+    <div class="field"><label for="pfBox">Hộp đang dùng còn bao nhiêu túi</label><input id="pfBox" type="number" min="0" max="60" inputmode="numeric"></div>
+    <div class="row2"><button class="btn btn-pri" type="submit">Lưu hồ sơ</button><button class="btn btn-out" type="button" id="pfReset">Dùng hồ sơ mẫu</button></div>
+    <p class="small muted">Hồ sơ chỉ lưu trên máy của bạn.</p>
+  </form>
+</div>
+
+<!-- Đặt hàng -->
+<div class="sheet" id="sheetOrder" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="orderTitle">
+    <div class="panel-head"><h2 class="h" id="orderTitle">Xác nhận đơn</h2><button class="x" type="button" data-close aria-label="Đóng">×</button></div>
+    <div id="orderBody"></div>
+    <p class="small muted">Đây là bản demo của dự án sinh viên: chưa có thanh toán hay giao hàng thật.</p>
+    <div class="row2"><button class="btn btn-pri" id="orderOk" type="button">Đặt đơn mẫu</button><button class="btn btn-out" data-close type="button">Xem lại giỏ</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+(function(){
+  "use strict";
+  var BUILD = "web";
+  var QR_SVG = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 41 41\" shape-rendering=\"crispEdges\"><rect width=\"41\" height=\"41\" fill=\"#ffffff\"/><path fill=\"#16231A\" d=\"M4 4h1v1h-1zM5 4h1v1h-1zM6 4h1v1h-1zM7 4h1v1h-1zM8 4h1v1h-1zM9 4h1v1h-1zM10 4h1v1h-1zM13 4h1v1h-1zM15 4h1v1h-1zM19 4h1v1h-1zM20 4h1v1h-1zM22 4h1v1h-1zM23 4h1v1h-1zM24 4h1v1h-1zM27 4h1v1h-1zM30 4h1v1h-1zM31 4h1v1h-1zM32 4h1v1h-1zM33 4h1v1h-1zM34 4h1v1h-1zM35 4h1v1h-1zM36 4h1v1h-1zM4 5h1v1h-1zM10 5h1v1h-1zM14 5h1v1h-1zM15 5h1v1h-1zM16 5h1v1h-1zM19 5h1v1h-1zM20 5h1v1h-1zM22 5h1v1h-1zM28 5h1v1h-1zM30 5h1v1h-1zM36 5h1v1h-1zM4 6h1v1h-1zM6 6h1v1h-1zM7 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM13 6h1v1h-1zM18 6h1v1h-1zM19 6h1v1h-1zM24 6h1v1h-1zM25 6h1v1h-1zM30 6h1v1h-1zM32 6h1v1h-1zM33 6h1v1h-1zM34 6h1v1h-1zM36 6h1v1h-1zM4 7h1v1h-1zM6 7h1v1h-1zM7 7h1v1h-1zM8 7h1v1h-1zM10 7h1v1h-1zM12 7h1v1h-1zM14 7h1v1h-1zM19 7h1v1h-1zM22 7h1v1h-1zM25 7h1v1h-1zM26 7h1v1h-1zM28 7h1v1h-1zM30 7h1v1h-1zM32 7h1v1h-1zM33 7h1v1h-1zM34 7h1v1h-1zM36 7h1v1h-1zM4 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM8 8h1v1h-1zM10 8h1v1h-1zM12 8h1v1h-1zM13 8h1v1h-1zM18 8h1v1h-1zM19 8h1v1h-1zM20 8h1v1h-1zM21 8h1v1h-1zM24 8h1v1h-1zM25 8h1v1h-1zM26 8h1v1h-1zM30 8h1v1h-1zM32 8h1v1h-1zM33 8h1v1h-1zM34 8h1v1h-1zM36 8h1v1h-1zM4 9h1v1h-1zM10 9h1v1h-1zM12 9h1v1h-1zM14 9h1v1h-1zM15 9h1v1h-1zM16 9h1v1h-1zM18 9h1v1h-1zM22 9h1v1h-1zM23 9h1v1h-1zM25 9h1v1h-1zM26 9h1v1h-1zM28 9h1v1h-1zM30 9h1v1h-1zM36 9h1v1h-1zM4 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM7 10h1v1h-1zM8 10h1v1h-1zM9 10h1v1h-1zM10 10h1v1h-1zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM18 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM28 10h1v1h-1zM30 10h1v1h-1zM31 10h1v1h-1zM32 10h1v1h-1zM33 10h1v1h-1zM34 10h1v1h-1zM35 10h1v1h-1zM36 10h1v1h-1zM12 11h1v1h-1zM13 11h1v1h-1zM18 11h1v1h-1zM20 11h1v1h-1zM23 11h1v1h-1zM24 11h1v1h-1zM25 11h1v1h-1zM26 11h1v1h-1zM27 11h1v1h-1zM28 11h1v1h-1zM4 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM8 12h1v1h-1zM9 12h1v1h-1zM10 12h1v1h-1zM14 12h1v1h-1zM15 12h1v1h-1zM16 12h1v1h-1zM17 12h1v1h-1zM18 12h1v1h-1zM20 12h1v1h-1zM21 12h1v1h-1zM23 12h1v1h-1zM24 12h1v1h-1zM27 12h1v1h-1zM28 12h1v1h-1zM30 12h1v1h-1zM31 12h1v1h-1zM32 12h1v1h-1zM33 12h1v1h-1zM34 12h1v1h-1zM4 13h1v1h-1zM5 13h1v1h-1zM8 13h1v1h-1zM11 13h1v1h-1zM12 13h1v1h-1zM13 13h1v1h-1zM14 13h1v1h-1zM15 13h1v1h-1zM16 13h1v1h-1zM17 13h1v1h-1zM20 13h1v1h-1zM21 13h1v1h-1zM22 13h1v1h-1zM23 13h1v1h-1zM24 13h1v1h-1zM27 13h1v1h-1zM30 13h1v1h-1zM31 13h1v1h-1zM33 13h1v1h-1zM34 13h1v1h-1zM35 13h1v1h-1zM36 13h1v1h-1zM4 14h1v1h-1zM5 14h1v1h-1zM6 14h1v1h-1zM7 14h1v1h-1zM9 14h1v1h-1zM10 14h1v1h-1zM11 14h1v1h-1zM13 14h1v1h-1zM16 14h1v1h-1zM17 14h1v1h-1zM18 14h1v1h-1zM19 14h1v1h-1zM21 14h1v1h-1zM25 14h1v1h-1zM32 14h1v1h-1zM34 14h1v1h-1zM35 14h1v1h-1zM5 15h1v1h-1zM7 15h1v1h-1zM8 15h1v1h-1zM12 15h1v1h-1zM13 15h1v1h-1zM14 15h1v1h-1zM17 15h1v1h-1zM20 15h1v1h-1zM21 15h1v1h-1zM22 15h1v1h-1zM23 15h1v1h-1zM25 15h1v1h-1zM26 15h1v1h-1zM29 15h1v1h-1zM32 15h1v1h-1zM33 15h1v1h-1zM34 15h1v1h-1zM35 15h1v1h-1zM4 16h1v1h-1zM6 16h1v1h-1zM10 16h1v1h-1zM13 16h1v1h-1zM18 16h1v1h-1zM19 16h1v1h-1zM20 16h1v1h-1zM24 16h1v1h-1zM25 16h1v1h-1zM26 16h1v1h-1zM28 16h1v1h-1zM29 16h1v1h-1zM31 16h1v1h-1zM32 16h1v1h-1zM33 16h1v1h-1zM35 16h1v1h-1zM4 17h1v1h-1zM5 17h1v1h-1zM11 17h1v1h-1zM13 17h1v1h-1zM15 17h1v1h-1zM16 17h1v1h-1zM19 17h1v1h-1zM22 17h1v1h-1zM26 17h1v1h-1zM27 17h1v1h-1zM29 17h1v1h-1zM33 17h1v1h-1zM34 17h1v1h-1zM35 17h1v1h-1zM36 17h1v1h-1zM7 18h1v1h-1zM8 18h1v1h-1zM9 18h1v1h-1zM10 18h1v1h-1zM12 18h1v1h-1zM15 18h1v1h-1zM19 18h1v1h-1zM20 18h1v1h-1zM21 18h1v1h-1zM24 18h1v1h-1zM26 18h1v1h-1zM28 18h1v1h-1zM29 18h1v1h-1zM30 18h1v1h-1zM34 18h1v1h-1zM35 18h1v1h-1zM6 19h1v1h-1zM7 19h1v1h-1zM9 19h1v1h-1zM14 19h1v1h-1zM15 19h1v1h-1zM18 19h1v1h-1zM19 19h1v1h-1zM22 19h1v1h-1zM25 19h1v1h-1zM27 19h1v1h-1zM29 19h1v1h-1zM30 19h1v1h-1zM31 19h1v1h-1zM33 19h1v1h-1zM34 19h1v1h-1zM7 20h1v1h-1zM8 20h1v1h-1zM9 20h1v1h-1zM10 20h1v1h-1zM13 20h1v1h-1zM15 20h1v1h-1zM17 20h1v1h-1zM18 20h1v1h-1zM19 20h1v1h-1zM21 20h1v1h-1zM24 20h1v1h-1zM26 20h1v1h-1zM27 20h1v1h-1zM29 20h1v1h-1zM31 20h1v1h-1zM32 20h1v1h-1zM33 20h1v1h-1zM36 20h1v1h-1zM4 21h1v1h-1zM6 21h1v1h-1zM8 21h1v1h-1zM13 21h1v1h-1zM14 21h1v1h-1zM15 21h1v1h-1zM16 21h1v1h-1zM19 21h1v1h-1zM20 21h1v1h-1zM22 21h1v1h-1zM23 21h1v1h-1zM24 21h1v1h-1zM25 21h1v1h-1zM27 21h1v1h-1zM30 21h1v1h-1zM31 21h1v1h-1zM33 21h1v1h-1zM34 21h1v1h-1zM35 21h1v1h-1zM4 22h1v1h-1zM5 22h1v1h-1zM6 22h1v1h-1zM7 22h1v1h-1zM10 22h1v1h-1zM11 22h1v1h-1zM12 22h1v1h-1zM13 22h1v1h-1zM16 22h1v1h-1zM17 22h1v1h-1zM18 22h1v1h-1zM19 22h1v1h-1zM20 22h1v1h-1zM22 22h1v1h-1zM24 22h1v1h-1zM25 22h1v1h-1zM29 22h1v1h-1zM31 22h1v1h-1zM32 22h1v1h-1zM34 22h1v1h-1zM35 22h1v1h-1zM13 23h1v1h-1zM15 23h1v1h-1zM16 23h1v1h-1zM20 23h1v1h-1zM25 23h1v1h-1zM26 23h1v1h-1zM28 23h1v1h-1zM31 23h1v1h-1zM32 23h1v1h-1zM33 23h1v1h-1zM34 23h1v1h-1zM35 23h1v1h-1zM36 23h1v1h-1zM6 24h1v1h-1zM10 24h1v1h-1zM11 24h1v1h-1zM12 24h1v1h-1zM15 24h1v1h-1zM22 24h1v1h-1zM26 24h1v1h-1zM28 24h1v1h-1zM29 24h1v1h-1zM32 24h1v1h-1zM33 24h1v1h-1zM35 24h1v1h-1zM4 25h1v1h-1zM8 25h1v1h-1zM11 25h1v1h-1zM12 25h1v1h-1zM13 25h1v1h-1zM14 25h1v1h-1zM15 25h1v1h-1zM17 25h1v1h-1zM18 25h1v1h-1zM19 25h1v1h-1zM20 25h1v1h-1zM24 25h1v1h-1zM25 25h1v1h-1zM27 25h1v1h-1zM29 25h1v1h-1zM30 25h1v1h-1zM31 25h1v1h-1zM33 25h1v1h-1zM34 25h1v1h-1zM36 25h1v1h-1zM4 26h1v1h-1zM6 26h1v1h-1zM7 26h1v1h-1zM9 26h1v1h-1zM10 26h1v1h-1zM11 26h1v1h-1zM16 26h1v1h-1zM17 26h1v1h-1zM22 26h1v1h-1zM23 26h1v1h-1zM25 26h1v1h-1zM28 26h1v1h-1zM33 26h1v1h-1zM35 26h1v1h-1zM4 27h1v1h-1zM9 27h1v1h-1zM11 27h1v1h-1zM12 27h1v1h-1zM15 27h1v1h-1zM17 27h1v1h-1zM20 27h1v1h-1zM23 27h1v1h-1zM24 27h1v1h-1zM25 27h1v1h-1zM26 27h1v1h-1zM27 27h1v1h-1zM29 27h1v1h-1zM30 27h1v1h-1zM31 27h1v1h-1zM33 27h1v1h-1zM34 27h1v1h-1zM35 27h1v1h-1zM4 28h1v1h-1zM7 28h1v1h-1zM9 28h1v1h-1zM10 28h1v1h-1zM11 28h1v1h-1zM14 28h1v1h-1zM15 28h1v1h-1zM16 28h1v1h-1zM21 28h1v1h-1zM23 28h1v1h-1zM26 28h1v1h-1zM28 28h1v1h-1zM29 28h1v1h-1zM30 28h1v1h-1zM31 28h1v1h-1zM32 28h1v1h-1zM34 28h1v1h-1zM12 29h1v1h-1zM15 29h1v1h-1zM21 29h1v1h-1zM22 29h1v1h-1zM23 29h1v1h-1zM24 29h1v1h-1zM28 29h1v1h-1zM32 29h1v1h-1zM34 29h1v1h-1zM35 29h1v1h-1zM36 29h1v1h-1zM4 30h1v1h-1zM5 30h1v1h-1zM6 30h1v1h-1zM7 30h1v1h-1zM8 30h1v1h-1zM9 30h1v1h-1zM10 30h1v1h-1zM15 30h1v1h-1zM16 30h1v1h-1zM17 30h1v1h-1zM18 30h1v1h-1zM19 30h1v1h-1zM21 30h1v1h-1zM24 30h1v1h-1zM25 30h1v1h-1zM27 30h1v1h-1zM28 30h1v1h-1zM30 30h1v1h-1zM32 30h1v1h-1zM34 30h1v1h-1zM35 30h1v1h-1zM4 31h1v1h-1zM10 31h1v1h-1zM12 31h1v1h-1zM13 31h1v1h-1zM14 31h1v1h-1zM15 31h1v1h-1zM16 31h1v1h-1zM19 31h1v1h-1zM20 31h1v1h-1zM21 31h1v1h-1zM22 31h1v1h-1zM23 31h1v1h-1zM24 31h1v1h-1zM25 31h1v1h-1zM26 31h1v1h-1zM27 31h1v1h-1zM28 31h1v1h-1zM32 31h1v1h-1zM33 31h1v1h-1zM34 31h1v1h-1zM35 31h1v1h-1zM36 31h1v1h-1zM4 32h1v1h-1zM6 32h1v1h-1zM7 32h1v1h-1zM8 32h1v1h-1zM10 32h1v1h-1zM12 32h1v1h-1zM13 32h1v1h-1zM15 32h1v1h-1zM16 32h1v1h-1zM17 32h1v1h-1zM18 32h1v1h-1zM19 32h1v1h-1zM20 32h1v1h-1zM23 32h1v1h-1zM25 32h1v1h-1zM26 32h1v1h-1zM28 32h1v1h-1zM29 32h1v1h-1zM30 32h1v1h-1zM31 32h1v1h-1zM32 32h1v1h-1zM33 32h1v1h-1zM35 32h1v1h-1zM4 33h1v1h-1zM6 33h1v1h-1zM7 33h1v1h-1zM8 33h1v1h-1zM10 33h1v1h-1zM12 33h1v1h-1zM14 33h1v1h-1zM16 33h1v1h-1zM18 33h1v1h-1zM19 33h1v1h-1zM22 33h1v1h-1zM28 33h1v1h-1zM29 33h1v1h-1zM32 33h1v1h-1zM33 33h1v1h-1zM35 33h1v1h-1zM36 33h1v1h-1zM4 34h1v1h-1zM6 34h1v1h-1zM7 34h1v1h-1zM8 34h1v1h-1zM10 34h1v1h-1zM12 34h1v1h-1zM13 34h1v1h-1zM16 34h1v1h-1zM19 34h1v1h-1zM20 34h1v1h-1zM21 34h1v1h-1zM22 34h1v1h-1zM25 34h1v1h-1zM27 34h1v1h-1zM30 34h1v1h-1zM31 34h1v1h-1zM34 34h1v1h-1zM4 35h1v1h-1zM10 35h1v1h-1zM13 35h1v1h-1zM14 35h1v1h-1zM19 35h1v1h-1zM25 35h1v1h-1zM26 35h1v1h-1zM27 35h1v1h-1zM30 35h1v1h-1zM32 35h1v1h-1zM33 35h1v1h-1zM34 35h1v1h-1zM4 36h1v1h-1zM5 36h1v1h-1zM6 36h1v1h-1zM7 36h1v1h-1zM8 36h1v1h-1zM9 36h1v1h-1zM10 36h1v1h-1zM12 36h1v1h-1zM13 36h1v1h-1zM14 36h1v1h-1zM17 36h1v1h-1zM19 36h1v1h-1zM20 36h1v1h-1zM21 36h1v1h-1zM23 36h1v1h-1zM28 36h1v1h-1zM29 36h1v1h-1zM31 36h1v1h-1zM33 36h1v1h-1zM34 36h1v1h-1zM35 36h1v1h-1z\"/></svg>";
+  var $ = function(s){ return document.querySelector(s); };
+  var $$ = function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); };
+
+  /* ================= Lưu trữ cá nhân ================= */
+  var store = {
+    get: function(k, d){ try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch(e){ return d; } },
+    set: function(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
+  };
+  var SAMPLE = { name:"Minh", goals:["heat","sleep"], cups:2, bed:"23:00", flags:[], sample:true };
+  var profile = store.get("tinhtam.profile", null) || JSON.parse(JSON.stringify(SAMPLE));
+  var logs = store.get("tinhtam.logs", {});
+  var box = store.get("tinhtam.box", { size:20, remaining:14 });
+  var lca = store.get("tinhtam.lca", { water:500, heat:"elec", dry:"elec", ship:"single", eol:"compost" });
+  var waste = store.get("tinhtam.waste", {});
+  var cart = {};
+
+  /* ================= Tiện ích ================= */
+  function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+  function pad(n){ return String(n).padStart(2,"0"); }
+  function dayKey(d){ return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate()); }
+  function nowHM(){ var d=new Date(); return pad(d.getHours())+":"+pad(d.getMinutes()); }
+  function toMin(hm){ var a=hm.split(":"); return (+a[0])*60 + (+a[1]); }
+  function fromMin(x){ x=((x%1440)+1440)%1440; return pad(Math.floor(x/60))+":"+pad(x%60); }
+  var WD = ["Chủ nhật","Thứ Hai","Thứ Ba","Thứ Tư","Thứ Năm","Thứ Sáu","Thứ Bảy"];
+  var WDS = ["CN","T2","T3","T4","T5","T6","T7"];
+  function dLabel(d){ return WD[d.getDay()]+", "+pad(d.getDate())+"/"+pad(d.getMonth()+1); }
+  function money(n){ return n.toLocaleString("vi-VN")+"đ"; }
+  function num(x, d){ return x.toLocaleString("vi-VN", { minimumFractionDigits:d||0, maximumFractionDigits:d||0 }); }
+  function nameOf(){ return (profile.name || "bạn").trim() || "bạn"; }
+  function todayLog(){ return logs[dayKey(new Date())] || []; }
+  function save(){ store.set("tinhtam.logs", logs); store.set("tinhtam.box", box); }
+  function wait(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+  var toastTimer;
+  function toast(msg){ var t=$("#toast"); t.textContent=msg; t.hidden=false; clearTimeout(toastTimer); toastTimer=setTimeout(function(){ t.hidden=true; }, 2800); }
+
+  /* ================= Năng lực của trang ================= */
+  var hasUse = !!(window.claude && typeof window.claude.use === "function");
+  var samplePromise = hasUse ? window.claude.use("sample").then(function(s){ return s || null; }, function(){ return null; }) : Promise.resolve(null);
+  var downloadsPromise = hasUse ? window.claude.use("downloads").then(function(d){ return d || null; }, function(){ return null; }) : Promise.resolve(null);
+  var canImages = false;
+  samplePromise.then(function(s){
+    chat.mode = s ? "online" : "offline"; renderStatus();
+    if (!s) { setVisionUI(); return; }
+    s.limits().then(function(l){ canImages = !!(l && l.images); setVisionUI(); }, function(){ setVisionUI(); });
+  });
+  downloadsPromise.then(function(d){ $("#btnQrSave").hidden = !d; });
+
+  /* ================= Lịch uống cá nhân hóa ================= */
+  function buildPlan(p){
+    var f = new Set(p.flags||[]), g = new Set(p.goals||[]);
+    if (f.has("pregnant")) return { locked:true, reason:"Bạn đánh dấu đang mang thai hoặc cho con bú. Chưa có nghiên cứu xác nhận trà lá bồ đề an toàn cho giai đoạn này, nên An Diệp chưa lên lịch. Hãy hỏi bác sĩ sản khoa trước khi uống." };
+    if (f.has("allergy")) return { locked:true, reason:"Bạn từng dị ứng nhựa cây họ Sung (Ficus). Cây bồ đề cùng họ này, nên An Diệp chưa lên lịch. Hãy hỏi bác sĩ trước khi dùng." };
+    var cups = Math.min(3, Math.max(1, parseInt(p.cups,10) || 2));
+    var notes = [];
+    if (f.has("meds")) { cups = 1; notes.push("Đang dùng thuốc: tối đa 1 túi/ngày, uống cách giờ thuốc ít nhất 2 tiếng. Hãy hỏi bác sĩ điều trị trước khi uống đều. Không ngưng thuốc để thay bằng trà."); }
+    var stomach = f.has("stomach");
+    if (stomach) notes.push("Dạ dày nhạy cảm: luôn uống sau ăn 30 phút, pha nhạt 150 ml, hãm 3 phút.");
+    var bed = toMin(p.bed || "23:00"); if (bed < 720) bed += 1440;
+    var eve = Math.max(19*60, bed - 120);
+    var all = {
+      morning:{ t:"08:30", title:"Sau bữa sáng", why: g.has("heat") ? "Bù nước đầu ngày, thay cho ly nước ngọt." : "Một tách nhẹ mở đầu ngày. Uống sau ăn để không chát bụng." },
+      noon:{ t:"13:00", title:"Sau bữa trưa", why: g.has("digest") ? "Uống ấm sau bữa chính, nhâm nhi chậm." : "Giải nhiệt giữa trưa nắng." },
+      afternoon:{ t:"15:30", title:"Giữa buổi chiều", why: g.has("sugar") ? "Giờ hay thèm trà sữa: đổi sang một tách không đường." : "Nghỉ tay giữa giờ học, uống chậm." },
+      evening:{ t:fromMin(eve), title:"Thư giãn buổi tối", why:"Không có caffeine. Uống khoảng 150 ml, trước giờ ngủ 2 tiếng để không phải dậy giữa đêm." }
+    };
+    var order = ["morning"];
+    if (g.has("sleep")) order.push("evening");
+    if (g.has("digest")) order.push("noon");
+    if (g.has("sugar")) order.push("afternoon");
+    ["noon","afternoon","evening"].forEach(function(k){ if (order.indexOf(k)<0) order.push(k); });
+    var slots = order.slice(0, cups).map(function(k){ return all[k]; });
+    slots.sort(function(a,b){ return toMin(a.t)-toMin(b.t); });
+    return { locked:false, cups:cups, slots:slots, notes:notes, brew: stomach ? "150 ml · hãm 3 phút" : "200 ml · hãm 5 phút" };
+  }
+  function nextSlot(plan){
+    if (plan.locked) return null;
+    var done = todayLog().map(function(e){ return e.slot; });
+    for (var i=0;i<plan.slots.length;i++){ if (done.indexOf(plan.slots[i].t)<0) return plan.slots[i]; }
+    return null;
+  }
+  function logCup(slotT){
+    var k = dayKey(new Date()); var arr = logs[k] || (logs[k]=[]);
+    arr.push({ t: nowHM(), slot: slotT || null });
+    box.remaining = Math.max(0, box.remaining-1); save();
+    if (arr.length > 3) toast("Hôm nay đã quá 3 túi. An Diệp khuyên dừng ở đây để dạ dày dễ chịu.");
+    else if (arr.length === 3) toast("Đủ 3 túi cho hôm nay rồi nhé.");
+  }
+  function unlogSlot(slotT){
+    var arr = logs[dayKey(new Date())] || [];
+    var i = arr.findIndex(function(e){ return e.slot===slotT; });
+    if (i>=0){ arr.splice(i,1); box.remaining = Math.min(60, box.remaining+1); save(); }
+  }
+  function logNext(){ var n = nextSlot(buildPlan(profile)); logCup(n ? n.t : null); }
+  function runOutDate(plan){
+    if (plan.locked) return null;
+    var left = box.remaining - Math.max(0, plan.cups - todayLog().length);
+    var days = Math.max(0, Math.floor(left / plan.cups));
+    var d = new Date(); d.setDate(d.getDate()+days);
+    return { days:days, date:d };
+  }
+
+  /* ================= LCA ================= */
+  var EF_GRID = 0.681; // kg CO2e/kWh, lưới điện VN 2024
+  var SHIP = { single:11.5, monthly:3.8, store:0.5 };
+  function lcaCompute(o){
+    var qkJ = o.water/1000 * 4.186 * 72;
+    var heat = o.heat==="gas" ? (qkJ/0.45/1000)*63.1 : (qkJ/0.8/3600)*EF_GRID*1000;
+    var dry = (o.dry==="solar" ? 0.3 : 1) * 0.0067 * EF_GRID * 1000;
+    var stages = [
+      { k:"grow", name:"Thu hái lá", v:0, hint:"Lá hái từ cây có sẵn, không bón phân, không tưới." },
+      { k:"dry",  name:"Sấy lá", v:dry },
+      { k:"proc", name:"Rửa, nghiền, đóng túi", v:0.002*EF_GRID*1000 },
+      { k:"pack", name:"Bao bì giấy", v:1.75 },
+      { k:"ship", name:"Vận chuyển, giao hàng", v:0.1 + SHIP[o.ship] },
+      { k:"heat", name:"Đun nước pha", v:heat },
+      { k:"eol",  name:"Xử lý bã và túi", v: o.eol==="landfill" ? 3.6 : 0.2 }
+    ];
+    var total = stages.reduce(function(a,s){ return a+s.v; }, 0);
+    var hot = stages.reduce(function(a,s){ return s.v>a.v ? s : a; }, stages[0]);
+    return { stages:stages, total:total, hot:hot };
+  }
+  function cupsPerDay(){ var p = buildPlan(profile); return p.locked ? 2 : p.cups; }
+  function lcaAdvice(o){
+    var base = lcaCompute(o).total, tips = [];
+    function tryOpt(patch, text){
+      var n = Object.assign({}, o, patch); var t = lcaCompute(n).total;
+      if (base - t > 0.3) tips.push({ save: base - t, text: text });
+    }
+    if (o.water > 200) tryOpt({ water:200 }, "Chỉ đun đúng 200 ml cho mỗi tách thay vì "+o.water+" ml.");
+    if (o.ship === "single") tryOpt({ ship:"monthly" }, "Chuyển sang gói tháng 60 túi: giao một lần thay vì ba lần.");
+    if (o.eol === "landfill") tryOpt({ eol:"compost" }, "Ủ bã trà thay vì bỏ rác chung, tránh khí metan ở bãi chôn lấp.");
+    if (o.dry === "elec") tryOpt({ dry:"solar" }, "Xưởng sấy lá kết hợp năng lượng mặt trời.");
+    tips.sort(function(a,b){ return b.save-a.save; });
+    return tips;
+  }
+  function renderLCA(){
+    var r = lcaCompute(lca), max = r.hot.v || 1;
+    $("#lcaTotal").innerHTML = num(r.total,1)+' <small>g CO₂e / tách</small>';
+    var c = cupsPerDay(), yearKg = r.total*c*365/1000;
+    $("#lcaYear").textContent = "Uống "+c+" tách mỗi ngày: khoảng "+num(yearKg,1)+" kg CO₂e một năm, tương đương đi xe máy "+num(yearKg*1000/46,0)+" km.";
+    $("#lcaWater").value = lca.water; $("#lcaWaterOut").textContent = lca.water+" ml";
+    $$(".seg").forEach(function(s){ var k=s.dataset.key; $$('.seg[data-key="'+k+'"] button').forEach(function(b){ b.setAttribute("aria-pressed", String(b.dataset.v===lca[k])); }); });
+    $("#lcaStages").innerHTML = r.stages.map(function(s){
+      var pct = r.total ? s.v/r.total*100 : 0, hot = s===r.hot;
+      return '<div class="stage'+(hot?' hot':'')+'" role="listitem" title="'+esc(s.name)+': '+num(s.v,2)+' g CO₂e ('+num(pct,0)+'%)">'+
+        '<div class="row"><span>'+esc(s.name)+(hot?'<span class="hotlbl">Điểm nóng</span>':'')+'</span><b>'+num(s.v,1)+' g · '+num(pct,0)+'%</b></div>'+
+        '<div class="track"><i style="width:'+(s.v/max*100).toFixed(1)+'%"></i></div>'+
+        (s.hint?'<p class="small muted" style="margin-top:3px">'+esc(s.hint)+'</p>':'')+'</div>';
+    }).join("");
+    var tips = lcaAdvice(lca);
+    $("#lcaAdvice").innerHTML = '<li>Khâu phát thải nhiều nhất: <b>'+esc(r.hot.name.toLowerCase())+'</b>, chiếm '+num(r.hot.v/r.total*100,0)+'% tổng.</li>'+
+      (tips.length ? tips.slice(0,3).map(function(t,i){ return '<li>'+"abc"[i]+') '+esc(t.text)+' Giảm khoảng <b>'+num(t.save,1)+' g</b> mỗi tách.</li>'; }).join("")
+                   : '<li>Bạn đã chọn các phương án phát thải thấp nhất trong mô hình này.</li>');
+    var oc = $("#originCarbon"); if (oc) oc.textContent = "khoảng "+num(r.total - r.stages[5].v - r.stages[6].v,1)+" g CO₂e mỗi túi (chưa tính khâu đun nước của bạn)";
+    store.set("tinhtam.lca", lca);
+  }
+  $("#lcaWater").addEventListener("input", function(){ lca.water = +this.value; renderLCA(); });
+  $$(".seg").forEach(function(s){ s.addEventListener("click", function(e){ var b=e.target.closest("button[data-v]"); if(!b) return; lca[s.dataset.key]=b.dataset.v; renderLCA(); }); });
+  $("#lcaAsk").addEventListener("click", function(){
+    var r = lcaCompute(lca);
+    ask("Phân tích dấu chân carbon một tách trà của mình: "+r.stages.map(function(s){ return s.name.toLowerCase()+" "+num(s.v,1)+" g"; }).join(", ")+"; tổng "+num(r.total,1)+" g CO₂e. Khâu nào cần cải thiện và mình nên làm gì?");
+  });
+
+  /* ================= Phân loại rác ================= */
+  var BINS = {
+    huu_co:{ name:"Rác thực phẩm, hữu cơ", c:"var(--bin-food)" },
+    tai_che:{ name:"Rác tái chế", c:"var(--bin-recycle)" },
+    con_lai:{ name:"Rác còn lại", c:"var(--bin-other)" },
+    nguy_hai:{ name:"Rác nguy hại", c:"var(--bin-haz)" }
+  };
+  var ITEMS = [
+    { n:"Bã trà + túi lọc An Diệp", b:"huu_co", r:"Túi giấy sợi thực vật và bã lá đều phân hủy sinh học.", t:"Ủ phân hoặc vùi vào gốc cây." },
+    { n:"Hộp giấy kraft An Diệp", b:"tai_che", r:"Giấy sạch, không có màng nhựa.", t:"Gấp dẹt cho gọn trước khi bỏ." },
+    { n:"Túi lọc trà nylon loại thường", b:"con_lai", r:"Lưới nhựa không ủ phân được và khó tái chế.", t:"Cắt túi, đổ bã vào rác hữu cơ, túi bỏ rác còn lại." },
+    { n:"Ly nhựa trà sữa", b:"tai_che", r:"Nhựa PP hoặc PET tái chế được nếu sạch.", t:"Tráng sạch, tách nắp và ống hút." },
+    { n:"Ống hút nhựa", b:"con_lai", r:"Quá nhỏ và nhẹ, cơ sở tái chế thường không nhận.", t:"Lần sau thử ống hút tre hoặc inox." },
+    { n:"Chai nhựa PET", b:"tai_che", r:"Một trong những loại nhựa tái chế phổ biến nhất.", t:"Đổ hết nước, bóp dẹp." },
+    { n:"Vỏ trái cây", b:"huu_co", r:"Đây là rác thực phẩm.", t:"Ủ chung với bã trà." },
+    { n:"Hộp xốp đựng cơm", b:"con_lai", r:"Xốp dính dầu mỡ rất khó tái chế.", t:"Mang hộp riêng khi mua đồ ăn." },
+    { n:"Pin đã dùng", b:"nguy_hai", r:"Chứa kim loại nặng, độc cho đất và nước.", t:"Gom lại, mang đến điểm thu hồi pin." },
+    { n:"Giấy in đã dùng", b:"tai_che", r:"Giấy khô, sạch tái chế được.", t:"Không vo tròn, để phẳng." }
+  ];
+  function wasteAdd(bin){
+    var k = dayKey(new Date()); var d = waste[k] || (waste[k] = {});
+    d[bin] = (d[bin]||0) + 1; store.set("tinhtam.waste", waste); renderWasteStats();
+  }
+  function renderWasteResult(o, src){
+    var b = BINS[o.b] || BINS.con_lai;
+    $("#wasteResult").innerHTML = '<div class="binres"><div class="lab">'+esc(src)+'</div><b>'+esc(o.n)+'</b>'+
+      '<span class="binchip"><i style="background:'+b.c+'"></i>'+esc(b.name)+'</span>'+
+      '<p class="small">'+esc(o.r)+'</p><p class="small"><b>Mẹo:</b> '+esc(o.t)+'</p></div>';
+  }
+  function renderWasteStats(){
+    var tot = { huu_co:0, tai_che:0, con_lai:0, nguy_hai:0 };
+    for (var i=0;i<7;i++){ var d=new Date(); d.setDate(d.getDate()-i); var w = waste[dayKey(d)]; if (w) for (var k in tot) tot[k]+= (w[k]||0); }
+    var sum = tot.huu_co+tot.tai_che+tot.con_lai+tot.nguy_hai, max = Math.max(1, tot.huu_co, tot.tai_che, tot.con_lai, tot.nguy_hai);
+    $("#wasteSummary").textContent = sum
+      ? "Đã phân loại "+sum+" món. "+num((tot.huu_co+tot.tai_che)/sum*100,0)+"% được ủ phân hoặc tái chế, không phải chôn lấp."
+      : "Chưa có món nào. Chọn thử một món phía trên để bắt đầu.";
+    $("#wasteBars").innerHTML = Object.keys(BINS).map(function(k){
+      return '<div class="binbar" title="'+esc(BINS[k].name)+': '+tot[k]+' món"><span class="binchip" style="font-size:12.5px;font-weight:500"><i style="background:'+BINS[k].c+'"></i>'+esc(BINS[k].name)+'</span>'+
+        '<div class="t"><i style="width:'+(tot[k]/max*100).toFixed(0)+'%;background:'+BINS[k].c+'"></i></div><b>'+tot[k]+'</b></div>';
+    }).join("");
+  }
+  $("#wasteTiles").innerHTML = ITEMS.map(function(it,i){ return '<button class="tile" type="button" data-item="'+i+'">'+esc(it.n)+'</button>'; }).join("");
+  $("#wasteReset").addEventListener("click", function(){ waste = {}; store.set("tinhtam.waste", waste); renderWasteStats(); toast("Đã xóa thống kê"); });
+  $("#wasteFile").addEventListener("change", async function(){
+    var f = this.files && this.files[0]; this.value = ""; if (!f) return;
+    var s = await samplePromise; if (!s || !canImages) return;
+    $("#wasteResult").innerHTML = '<div class="binres"><span class="dots"><i></i><i></i><i></i></span><span class="small muted">AI đang nhìn ảnh…</span></div>';
+    try {
+      var j = await s.json('Ảnh chụp một món rác sinh hoạt ở Việt Nam. Hãy nhận diện và phân loại. Chỉ trả về một JSON: {"mon": "tên món ngắn gọn bằng tiếng Việt", "nhom": "huu_co" | "tai_che" | "con_lai" | "nguy_hai", "ly_do": "1 câu tiếng Việt", "meo": "1 câu cách xử lý trước khi bỏ"}. Phân nhóm theo Luật Bảo vệ môi trường 2020: rác thực phẩm/hữu cơ, rác tái chế, rác còn lại; rác nguy hại (pin, bóng đèn, hóa chất) thu gom riêng. Bã trà và túi lọc giấy là hữu cơ; hộp giấy sạch là tái chế. Nếu ảnh không phải rác, đặt mon là "Không nhận ra", nhom là "con_lai", và meo nhắc chụp lại rõ hơn.', { images:[f], modelTier:"quick" });
+      var bin = BINS[j && j.nhom] ? j.nhom : "con_lai";
+      var o = { n: String(j.mon||"Món rác"), b: bin, r: String(j.ly_do||""), t: String(j.meo||"") };
+      renderWasteResult(o, "Kết quả AI từ ảnh của bạn"); if (o.n !== "Không nhận ra") wasteAdd(bin);
+    } catch(e){
+      $("#wasteResult").innerHTML = '<div class="binres"><p class="small">'+(e && e.code==="image_rejected" ? "Ảnh này không đọc được. Thử ảnh khác (JPG hoặc PNG)." : e && e.code==="rate_limited" ? "AI đang bận. Thử lại sau ít phút hoặc chọn nhanh bên trên." : "AI chưa phân loại được ảnh này. Chọn nhanh món tương tự bên trên nhé.")+'</p></div>';
+    }
+  });
+
+  /* ================= Kiểm tra lá ================= */
+  function setVisionUI(){
+    $("#leafPickLbl").hidden = !canImages;
+    $("#wastePhotoRow").hidden = !canImages;
+    $("#leafNote").textContent = canImages ? "Chụp rõ một lá trên nền trơn, đủ sáng."
+      : BUILD === "apk" ? "Bản cài trên điện thoại chạy ngoại tuyến nên chưa gửi ảnh cho AI được. Bấm “Xem quét mẫu” để xem cách hệ thống hoạt động."
+      : "Phiên này chưa gửi được ảnh cho AI. Bấm “Xem quét mẫu” để xem cách hệ thống hoạt động.";
+  }
+  function renderLeaf(r, sim){
+    var ok = !!r.dat_chuan_lam_tra, c = Math.max(0, Math.min(100, +r.do_tin_cay || 0));
+    $("#leafResult").innerHTML = '<div class="result">'+(sim?'<span class="badge-sim">Kết quả mô phỏng để trình diễn</span>':'<span class="badge-sim" style="color:var(--bodhi-text)">Kết quả AI từ ảnh của bạn</span>')+
+      '<span class="verdict '+(ok?'ok':'no')+'">'+(ok?'Đạt chuẩn làm trà':'Chưa đạt chuẩn')+'</span>'+
+      '<dl class="kv"><dt>Loài</dt><dd>'+esc(r.ten_du_doan||"Không rõ")+'</dd>'+
+      '<dt>Độ tin cậy</dt><dd><span class="num" style="font-size:16px">'+c+'%</span><div class="conf"><i style="width:'+c+'%"></i></div></dd>'+
+      '<dt>Độ tuổi lá</dt><dd>'+esc(r.do_tuoi||"Không rõ")+'</dd>'+
+      '<dt>Tình trạng</dt><dd>'+esc((r.tinh_trang && r.tinh_trang.length) ? r.tinh_trang.join("; ") : "Không thấy sâu bệnh, đốm hay héo")+'</dd></dl>'+
+      (r.ghi_chu?'<p class="small">'+esc(r.ghi_chu)+'</p>':'')+'</div>';
+  }
+  $("#leafDemo").addEventListener("click", async function(){
+    var sb = $("#scanbox"); sb.classList.add("scanning"); $("#leafResult").innerHTML = "";
+    await wait(1800); sb.classList.remove("scanning");
+    renderLeaf({ ten_du_doan:"Bồ đề (Ficus religiosa)", do_tin_cay:94, do_tuoi:"Lá bánh tẻ", tinh_trang:[], dat_chuan_lam_tra:true, ghi_chu:"Phiến lá hình tim, đuôi nhọn dài đặc trưng của bồ đề. Màu xanh đều, gân rõ, không đốm." }, true);
+  });
+  $("#leafFile").addEventListener("change", async function(){
+    var f = this.files && this.files[0]; this.value = ""; if (!f) return;
+    var sb = $("#scanbox"), url = URL.createObjectURL(f);
+    $("#vfImg").innerHTML = '<img alt="Ảnh lá bạn vừa chọn" src="'+url+'">';
+    sb.classList.add("scanning"); $("#leafResult").innerHTML = "";
+    var s = await samplePromise;
+    try {
+      if (!s || !canImages) throw { code:"images_unavailable" };
+      var r = await s.json('Bạn là hệ thống thị giác máy tính kiểm tra nguyên liệu cho xưởng trà túi lọc lá bồ đề (Ficus religiosa). Nhìn ảnh và chỉ trả về một JSON: {"la_bo_de": true|false, "do_tin_cay": số 0-100, "ten_du_doan": "tên cây bằng tiếng Việt, kèm tên khoa học nếu chắc chắn", "do_tuoi": "Lá non" | "Lá bánh tẻ" | "Lá già" | "Không rõ", "tinh_trang": [tối đa 3 ý ngắn tiếng Việt về sâu bệnh, đốm, rách, héo, bẩn; để [] nếu lá sạch], "dat_chuan_lam_tra": true|false, "ghi_chu": "1-2 câu tiếng Việt giải thích"}. Chỉ đạt chuẩn khi là lá bồ đề, lá bánh tẻ, không sâu bệnh, đốm hay héo. Nếu ảnh không phải lá cây, la_bo_de=false, do_tin_cay thấp, ghi_chu nhắc chụp lại một lá trên nền trơn.', { images:[f], modelTier:"quick" });
+      renderLeaf(r || {}, false);
+    } catch(e){
+      $("#leafResult").innerHTML = '<div class="result"><p class="small">'+(e && e.code==="image_rejected" ? "Ảnh này không đọc được. Thử ảnh JPG hoặc PNG khác." : e && e.code==="rate_limited" ? "AI đang bận. Thử lại sau ít phút." : "AI chưa phân tích được ảnh này. Bạn có thể xem quét mẫu để hiểu cách hệ thống chạy.")+'</p></div>';
+    } finally { sb.classList.remove("scanning"); setTimeout(function(){ URL.revokeObjectURL(url); }, 60000); }
+  });
+
+  /* ================= Trang chủ ================= */
+  var QS = [
+    "Pha thế nào cho ngon?",
+    "Hôm nay mình nên uống lúc nào?",
+    "Uống buổi tối có mất ngủ không?",
+    "Mỗi ngày uống mấy túi là đủ?",
+    "Đang uống thuốc huyết áp thì sao?",
+    "Lá bồ đề có tác dụng gì?",
+    "Dạo này căng thẳng quá",
+    "Một tách trà thải bao nhiêu CO₂?",
+    "Túi trà dùng xong bỏ đâu?"
+  ];
+  function renderHome(){
+    var plan = buildPlan(profile), done = todayLog().length, el = $("#todayCard");
+    if (plan.locked){
+      el.innerHTML = '<div class="nx" style="grid-column:1/-1"><div class="lab">Lịch hôm nay</div><div class="t">An Diệp tạm chưa lên lịch</div><p>'+esc(plan.reason)+'</p></div>'+
+        '<div class="actions"><button class="btn btn-acc" type="button" data-ask="Vì sao mình chưa nên uống trà lá bồ đề?">Hỏi An Diệp</button><button class="btn btn-ghost-light" type="button" data-open-profile>Sửa hồ sơ</button></div>';
+      return;
+    }
+    var n = nextSlot(plan), cells = "";
+    for (var i=0;i<plan.cups;i++) cells += '<i class="'+(i<done?'on':'')+'"></i>';
+    el.innerHTML =
+      '<div><div class="lab">Hôm nay</div><div class="big">'+done+'<small>/'+plan.cups+'</small></div><div class="lab" style="margin-top:6px">túi đã uống</div></div>'+
+      '<div class="nx"><div class="lab">'+(n?'Tách tiếp theo':'Đã xong lịch')+'</div>'+
+      (n ? '<div class="t">'+n.t+' · '+esc(n.title)+'</div><p>'+esc(n.why)+'</p>' : '<div class="t">Uống đủ nước lọc nữa nhé, '+esc(nameOf())+'.</div>')+'</div>'+
+      '<div class="cells" aria-hidden="true">'+cells+'</div>'+
+      '<div class="actions"><button class="btn btn-acc" type="button" data-brew>Pha một tách</button><button class="btn btn-ghost-light" type="button" data-go="lich">Lịch hôm nay</button></div>';
+  }
+
+  /* ================= Lịch ================= */
+  function renderPlan(){
+    var plan = buildPlan(profile), today = new Date(), log = todayLog();
+    var h = '<section class="sec g"><div class="head" style="margin-bottom:0"><span class="lab">Lịch uống của '+esc(nameOf())+'</span><button class="linkbtn" type="button" data-open-profile>Sửa hồ sơ</button></div>'+
+            '<div class="datehead" style="margin-top:6px"><h2 class="h" style="font-size:26px">'+dLabel(today)+'</h2><div class="count">'+log.length+(plan.locked?'':'/'+plan.cups)+' TÚI</div></div>';
+    if (plan.locked){
+      h += '<div class="locked"><b>An Diệp tạm chưa lên lịch cho bạn</b><p class="small">'+esc(plan.reason)+'</p>'+
+           '<div class="row2"><button class="btn btn-pri" type="button" data-ask="Vì sao mình chưa nên uống trà lá bồ đề?">Hỏi An Diệp</button><button class="btn btn-out" type="button" data-open-profile>Sửa hồ sơ</button></div></div>';
+    } else {
+      if (plan.notes.length) h += '<div class="notes">'+plan.notes.map(function(n){ return '<div class="note-line">'+esc(n)+'</div>'; }).join("")+'</div>';
+      h += '<div class="timeline">';
+      plan.slots.forEach(function(s){
+        var done = log.some(function(e){ return e.slot===s.t; });
+        h += '<div class="slot'+(done?' done':'')+'"><div class="time">'+s.t+'</div>'+
+             '<div class="body"><b>'+esc(s.title)+'</b><p>'+esc(s.why)+' '+esc(plan.brew)+'.</p></div>'+
+             '<button class="check" type="button" data-slot="'+s.t+'" aria-pressed="'+done+'" aria-label="Đánh dấu đã uống lúc '+s.t+'"><svg><use href="#ic-check"/></svg></button></div>';
+      });
+      var extra = log.filter(function(e){ return !e.slot; });
+      if (extra.length) h += '<p class="small muted" style="padding-top:8px">Tách thêm lúc '+extra.map(function(e){return e.t;}).join(", ")+'.</p>';
+      h += '</div>';
+    }
+    h += '</section>';
+    h += '<section class="sec g"><div class="head"><h2 class="h">7 ngày gần nhất</h2><span class="lab">Số túi mỗi ngày</span></div><div class="week">';
+    for (var i=6;i>=0;i--){
+      var d = new Date(); d.setDate(d.getDate()-i);
+      var c = (logs[dayKey(d)]||[]).length;
+      h += '<div class="day'+(i===0?' today-col':'')+'" title="'+dLabel(d)+': '+c+' túi"><div class="cups">';
+      for (var j=0;j<3;j++) h += '<i class="'+(j<c?'on':'')+'"></i>';
+      h += '</div>'+WDS[d.getDay()]+'</div>';
+    }
+    h += '</div></section>';
+    var r = runOutDate(plan);
+    h += '<section class="sec g"><div class="head"><h2 class="h">Hộp đang dùng</h2><span class="lab">Hộp '+box.size+' túi</span></div>'+
+         '<div class="boxrow"><div><span class="stat">'+box.remaining+'</span> <span class="muted">túi còn lại</span></div>'+
+         '<button class="btn btn-out" type="button" data-go="cua-hang">Đặt thêm</button></div>'+
+         '<div class="bar"><i style="width:'+Math.min(100, Math.round(box.remaining/box.size*100))+'%"></i></div>'+
+         (r ? '<p class="small muted" style="margin-top:8px">Với '+plan.cups+' túi/ngày, hộp đủ dùng đến khoảng '+dLabel(r.date)+'. An Diệp sẽ nhắc bạn đặt thêm trước 2 ngày.</p>' : '')+
+         '</section>';
+    $("#planScroll").innerHTML = h;
+  }
+
+  /* ================= Cửa hàng ================= */
+  var PRODUCTS = [
+    { id:"h20", name:"Hộp 20 túi", sub:"Dùng thử · 2 g mỗi túi", price:59000 },
+    { id:"h50", name:"Hộp 50 túi", sub:"Tiết kiệm 12% so với hộp nhỏ", price:129000 },
+    { id:"goi", name:"Gói tháng 60 túi", sub:"Giao mỗi tháng, An Diệp canh lúc sắp hết. Tiết kiệm 21% và giảm 2/3 phát thải giao hàng.", price:139000, tag:"Trợ lý đặt hàng" }
+  ];
+  function boxArt(big){
+    return '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 20 L32 12 L52 20 L52 52 L32 60 L12 52 Z" style="fill:var(--kraft);stroke:var(--kraft-ink)" stroke-width="1.5"/>'+
+      '<path d="M12 20 L32 28 L52 20 L32 12 Z" style="fill:var(--kraft-dark);stroke:var(--kraft-ink)" stroke-width="1.5"/><path d="M32 28 L32 60" style="stroke:var(--kraft-ink)" stroke-width="1.5"/>'+
+      '<g transform="translate(17 31)" style="color:var(--bodhi)"><use href="#leaf" width="12" height="17"/></g>'+
+      (big?'<g transform="translate(38 32)" style="color:var(--bodhi)"><use href="#leaf" width="9" height="13"/></g>':'')+'</svg>';
+  }
+  function renderShop(){
+    var plan = buildPlan(profile), r = runOutDate(plan), h = '';
+    if (r) h += '<section class="sec g"><div class="reorder"><div class="lab" style="color:var(--ink)">An Diệp nhắc</div><b>Hộp của bạn còn '+box.remaining+' túi, đủ đến khoảng '+dLabel(r.date)+'.</b><p class="small">Đặt trước 2 ngày để không bị gián đoạn. Gói tháng giúp bạn khỏi phải nhớ.</p></div></section>';
+    h += '<section class="sec g"><div class="head"><h2 class="h">Trà An Diệp</h2><span class="lab">Giá dự kiến</span></div><div class="plist">';
+    PRODUCTS.forEach(function(p, i){
+      var q = cart[p.id]||0;
+      h += '<div class="prod">'+boxArt(i>0)+'<div style="min-width:0">'+(p.tag?'<span class="ptag">'+esc(p.tag)+'</span>':'')+
+           '<div class="name">'+esc(p.name)+'</div><div class="sub">'+esc(p.sub)+'</div><div class="price">'+money(p.price)+'</div></div>'+
+           '<button class="btn '+(q?'btn-pri':'btn-out')+'" type="button" data-add="'+p.id+'">'+(q?'Đã thêm '+q:'Thêm')+'</button></div>';
+    });
+    h += '</div>';
+    var count = 0, total = 0;
+    PRODUCTS.forEach(function(p){ var q=cart[p.id]||0; count+=q; total+=q*p.price; });
+    if (count) h += '<div class="cartbar"><div><div class="lab">Giỏ hàng · '+count+' sản phẩm</div><div class="num">'+money(total)+'</div></div><div class="row2" style="flex:none"><button class="btn btn-out" type="button" id="cartClear">Xóa</button><button class="btn btn-pri" type="button" id="cartGo">Đặt hàng</button></div></div>';
+    h += '<p class="foot">Bao bì không nhựa: túi lọc giấy sợi thực vật, hộp giấy kraft.</p></section>';
+    $("#shopScroll").innerHTML = h;
+  }
+
+  function renderAvatar(){ $("#btnProfile").textContent = (nameOf().charAt(0) || "B").toUpperCase(); }
+  function renderAll(){ renderAvatar(); renderHome(); renderPlan(); renderShop(); renderLCA(); }
+
+  /* ================= Điều hướng ================= */
+  var VIEWS = ["trang-chu","tro-ly","lich","xanh","cua-hang"];
+  function show(v, init){
+    if (VIEWS.indexOf(v)<0) v = "trang-chu";
+    VIEWS.forEach(function(x){ $("#view-"+x).hidden = (x!==v); });
+    $$(".tab").forEach(function(t){ if (t.dataset.view===v) t.setAttribute("aria-current","page"); else t.removeAttribute("aria-current"); });
+    if (v==="lich") renderPlan();
+    if (v==="cua-hang") renderShop();
+    if (v==="xanh") renderLCA();
+    if (v==="tro-ly") setTimeout(function(){ var m=$("#msgs"); m.scrollTop=m.scrollHeight; }, 0);
+    if (!init && location.hash !== "#"+v) location.hash = v;
+  }
+  window.addEventListener("hashchange", function(){ show(location.hash.slice(1)); });
+
+  /* ================= Tấm trượt ================= */
+  var lastFocus = null;
+  function openSheet(id){ lastFocus = document.activeElement; var s=$(id); s.hidden=false; var f=s.querySelector(".x"); if (f) f.focus(); }
+  function closeSheet(s){ s.hidden=true; if (s.id==="sheetBrew") stopBrew(); if (lastFocus && lastFocus.focus) lastFocus.focus(); }
+  function closeAll(){ $$(".sheet").forEach(function(s){ if(!s.hidden) closeSheet(s); }); }
+  $$(".sheet").forEach(function(s){ s.addEventListener("click", function(e){ if (e.target===s || e.target.closest("[data-close]")) closeSheet(s); }); });
+  document.addEventListener("keydown", function(e){ if (e.key==="Escape") closeAll(); });
+
+  /* ================= Hồ sơ ================= */
+  function fillProfile(p){
+    $("#pfName").value = p.name || "";
+    ["heat","digest","sleep","sugar"].forEach(function(k){ $("#g-"+k).checked = (p.goals||[]).indexOf(k)>=0; });
+    ["pregnant","meds","stomach","allergy"].forEach(function(k){ $("#f-"+k).checked = (p.flags||[]).indexOf(k)>=0; });
+    var c = $("#c"+(p.cups||2)); if (c) c.checked = true;
+    $("#pfBed").value = p.bed || "23:00"; $("#pfBox").value = box.remaining;
+    $("#pfSampleNote").hidden = !p.sample;
+  }
+  function openProfile(){ fillProfile(profile); openSheet("#sheetProfile"); }
+  $("#profileForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    var cupsEl = document.querySelector('input[name="pfCups"]:checked');
+    profile = {
+      name: $("#pfName").value.trim() || "bạn",
+      goals: ["heat","digest","sleep","sugar"].filter(function(k){ return $("#g-"+k).checked; }),
+      flags: ["pregnant","meds","stomach","allergy"].filter(function(k){ return $("#f-"+k).checked; }),
+      cups: cupsEl ? +cupsEl.value : 2, bed: $("#pfBed").value, sample:false
+    };
+    var b = parseInt($("#pfBox").value,10); if (!isNaN(b)) box.remaining = Math.max(0, Math.min(60, b));
+    store.set("tinhtam.profile", profile); save();
+    closeSheet($("#sheetProfile")); renderAll();
+    var plan = buildPlan(profile);
+    botSay(plan.locked
+      ? "Mình đã cập nhật hồ sơ của "+nameOf()+". Với lưu ý sức khỏe bạn chọn, mình tạm chưa lên lịch uống. "+plan.reason
+      : "Mình đã cập nhật hồ sơ của "+nameOf()+". Lịch mới hôm nay có "+plan.cups+" tách: "+plan.slots.map(function(s){return s.t+" ("+s.title.toLowerCase()+")";}).join(", ")+".");
+    toast("Đã lưu hồ sơ");
+  });
+  $("#pfReset").addEventListener("click", function(){ fillProfile(SAMPLE); });
+
+  /* ================= Pha trà + thở hộp ================= */
+  var brew = { dur:300, left:300, running:false, speed:1, last:0, raf:0, audio:null };
+  var PALE = [233,225,180], AMBER = [176,104,32];
+  function mix(t){ t = Math.pow(Math.max(0,Math.min(1,t)), .75); return "rgb("+PALE.map(function(a,i){ return Math.round(a+(AMBER[i]-a)*t); }).join(",")+")"; }
+  function drawBrew(){
+    var p = 1 - brew.left/brew.dur;
+    $("#liquid").setAttribute("fill", mix(p));
+    $("#brewBar").style.width = (p*100).toFixed(1)+"%";
+    var s = Math.ceil(brew.left); $("#clock").textContent = pad(Math.floor(s/60))+":"+pad(s%60);
+  }
+  function tick(ts){
+    if (!brew.running) return;
+    if (brew.last) brew.left -= (ts-brew.last)/1000*brew.speed;
+    brew.last = ts;
+    if (brew.left <= 0){ brew.left = 0; drawBrew(); finishBrew(); return; }
+    drawBrew(); brew.raf = requestAnimationFrame(tick);
+  }
+  var breath = { timer:0, cycles:0 };
+  var PHASES = [ { k:"in", t:"Hít vào" }, { k:"hold1", t:"Giữ" }, { k:"out", t:"Thở ra" }, { k:"hold2", t:"Giữ" } ];
+  function breathStep(i){
+    var ph = PHASES[i % 4], bx = $("#boxb");
+    bx.dataset.phase = ph.k;
+    $("#orbTxt").textContent = ph.t;
+    if (i > 0 && i % 4 === 0) breath.cycles++;
+    $("#breathTxt").textContent = breath.cycles ? "Đã thở chậm "+breath.cycles+" vòng. Thả lỏng vai, để tâm trí nghỉ ngơi." : "Hít vào 4 giây, giữ 4 giây, thở ra 4 giây, giữ 4 giây.";
+    breath.timer = setTimeout(function(){ breathStep(i+1); }, 4000);
+  }
+  function startBreath(){ clearTimeout(breath.timer); var bx=$("#boxb"); bx.classList.remove("run"); void bx.offsetWidth; bx.classList.add("run"); breathStep(0); }
+  function stopBreath(){ clearTimeout(breath.timer); var bx=$("#boxb"); bx.classList.remove("run"); bx.dataset.phase = "hold2"; $("#orbTxt").textContent = "Nghỉ"; }
+  function startBrew(){
+    if (brew.left<=0) resetBrew();
+    brew.running = true; brew.last = 0; $("#cupwrap").classList.add("brewing");
+    $("#brewStart").textContent = "Tạm dừng";
+    try { if (!brew.audio) brew.audio = new (window.AudioContext||window.webkitAudioContext)(); } catch(e){}
+    brew.raf = requestAnimationFrame(tick); startBreath();
+  }
+  function stopBrew(){ brew.running=false; cancelAnimationFrame(brew.raf); $("#cupwrap").classList.remove("brewing"); stopBreath(); $("#brewStart").textContent = brew.left<brew.dur && brew.left>0 ? "Tiếp tục" : "Bắt đầu hãm"; }
+  function resetBrew(){ stopBrew(); brew.left = brew.dur; brew.speed = 1; breath.cycles = 0; $("#brewFast").setAttribute("aria-pressed","false"); $("#brewFast").textContent="Tua nhanh ×10"; $("#brewDone").hidden = true; $("#brewStart").textContent="Bắt đầu hãm"; $("#orbTxt").textContent="Sẵn sàng"; drawBrew(); }
+  function finishBrew(){
+    stopBrew(); $("#brewStart").textContent = "Hãm lại từ đầu"; $("#brewDone").hidden = false;
+    try { var a = brew.audio; if (a){ [0,0.25].forEach(function(off){ var o=a.createOscillator(), g=a.createGain(); o.frequency.value=880; g.gain.setValueAtTime(.0001,a.currentTime+off); g.gain.exponentialRampToValueAtTime(.2,a.currentTime+off+.02); g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+off+.2); o.connect(g).connect(a.destination); o.start(a.currentTime+off); o.stop(a.currentTime+off+.22); }); } } catch(e){}
+    if (BUILD !== "apk") { try { if (navigator.vibrate) navigator.vibrate([120,80,120]); } catch(e){} }
+  }
+  $("#strength").addEventListener("click", function(e){
+    var b = e.target.closest("button[data-sec]"); if (!b) return;
+    $$("#strength button").forEach(function(x){ x.setAttribute("aria-pressed", String(x===b)); });
+    brew.dur = +b.dataset.sec; resetBrew();
+  });
+  $("#brewStart").addEventListener("click", function(){ brew.running ? stopBrew() : startBrew(); });
+  $("#brewFast").addEventListener("click", function(){
+    brew.speed = brew.speed===1 ? 10 : 1;
+    this.setAttribute("aria-pressed", String(brew.speed!==1));
+    this.textContent = brew.speed===1 ? "Tua nhanh ×10" : "Tốc độ thường";
+    if (!brew.running && brew.left>0) startBrew();
+  });
+  $("#brewLog").addEventListener("click", function(){ logNext(); closeSheet($("#sheetBrew")); renderAll(); toast("Đã ghi 1 tách vào lịch hôm nay"); });
+  function openBrew(){
+    var want = (profile.flags||[]).indexOf("stomach")>=0 ? 180 : 300;
+    brew.dur = want; $$("#strength button").forEach(function(x){ x.setAttribute("aria-pressed", String(+x.dataset.sec===want)); });
+    resetBrew(); openSheet("#sheetBrew");
+  }
+
+  /* ================= Chatbot An Diệp ================= */
+  function norm(s){ return s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[đĐ]/g,"d").toLowerCase().replace(/[^a-z0-9]+/g," ").trim(); }
+  function has(t, list){ return list.some(function(k){ return (" "+t+" ").indexOf(" "+k+" ") >= 0; }); }
+  function planSentence(plan){
+    if (plan.locked) return plan.reason;
+    return "Hôm nay mình gợi ý "+plan.cups+" tách: "+plan.slots.map(function(s){ return s.t+" "+s.title.toLowerCase(); }).join(", ")+". Mỗi tách "+plan.brew+". Không uống lúc bụng đói vì lá bồ đề khá chát.";
+  }
+  function lcaSentence(){
+    var r = lcaCompute(lca), tips = lcaAdvice(lca);
+    return "Với lựa chọn hiện tại trong tab Xanh, một tách thải khoảng "+num(r.total,1)+" g CO₂e. Khâu nhiều nhất là "+r.hot.name.toLowerCase()+" ("+num(r.hot.v/r.total*100,0)+"%)."+(tips.length ? " Cách giảm nhiều nhất: "+tips[0].text.charAt(0).toLowerCase()+tips[0].text.slice(1)+" Giảm khoảng "+num(tips[0].save,1)+" g mỗi tách." : " Bạn đang ở mức thấp nhất của mô hình rồi.");
+  }
+  function offline(q){
+    var t = norm(q), n = nameOf(), plan = buildPlan(profile), done = todayLog().length;
+    if (has(t,["tu tu","muon chet","khong muon song","tu hai","ket thuc cuoc doi"])) return "Mình rất tiếc vì "+n+" đang thấy nặng nề như vậy. Bạn không phải một mình đối mặt chuyện này. Hãy gọi ngay cho người thân, bạn bè tin cậy, hoặc gọi 115 nếu thấy mình không an toàn. Nói chuyện với chuyên gia tâm lý cũng giúp được nhiều.";
+    if (has(t,["dau nguc","kho tho","ngat","co giat","tuc nguc","sung moi"])) return "Đây có thể là dấu hiệu cấp cứu. "+n+" hãy gọi 115 hoặc đến cơ sở y tế gần nhất ngay. Mình không thể hỗ trợ tình huống này qua tin nhắn.";
+    if (has(t,["bau","mang thai","cho con bu","thai ky","co thai"])) return "Chưa có nghiên cứu nào xác nhận trà lá bồ đề an toàn khi mang thai hay cho con bú. Mình khuyên "+n+" hỏi bác sĩ sản khoa trước khi uống. Nếu bạn đánh dấu điều này trong hồ sơ, mình sẽ tạm không lên lịch uống tự động.";
+    if (has(t,["di ung","ngua","noi man","me day"])) return "Nếu thấy ngứa, nổi mẩn hay sưng môi sau khi uống, "+n+" ngừng ngay và đi khám; nếu khó thở thì gọi 115. Người từng dị ứng nhựa cây họ Sung (sung, đa, si, bồ đề) nên hỏi bác sĩ trước khi dùng.";
+    if (has(t,["tre em","tre con","con nho","em be","cho be","tre nho"])) return "Chưa có dữ liệu an toàn của trà lá bồ đề cho trẻ nhỏ. Với trẻ dưới 12 tuổi, "+n+" hãy hỏi bác sĩ nhi trước khi cho bé uống.";
+    if (has(t,["tieu duong","duong huyet","dai thao duong"])) return "Một số nghiên cứu trên chuột ghi nhận chiết xuất bồ đề làm giảm đường huyết, nhưng chưa có thử nghiệm trên người. Nếu "+n+" đang dùng thuốc tiểu đường:\na) Hỏi bác sĩ điều trị trước.\nb) Nếu được đồng ý, bắt đầu 1 túi/ngày và theo dõi đường huyết.\nc) Không giảm thuốc vì đã uống trà.";
+    if (has(t,["huyet ap","tim mach","benh tim","nhoi mau","thuoc","men gan","benh gan","uong thuoc"])) return "Trà thảo mộc có thể tương tác với thuốc. Nếu "+n+" đang dùng thuốc huyết áp, tim mạch hay thuốc gan:\na) Không ngưng hay giảm thuốc để thay bằng trà.\nb) Hỏi bác sĩ điều trị trước khi uống đều đặn.\nc) Nếu được đồng ý, uống tối đa 1 túi/ngày, cách giờ thuốc ít nhất 2 tiếng.\nHiện chưa có bằng chứng trà lá bồ đề ngừa bệnh tim.";
+    if (has(t,["chua benh","chua khoi","tri benh","dieu tri","ung thu","chua duoc","tri duoc","khoi benh"])) return "Mình không nói trà chữa được bệnh, vì chưa có nghiên cứu trên người chứng minh điều đó. Nếu "+n+" đang có bệnh, hãy theo hướng dẫn của bác sĩ. Trà An Diệp là một thức uống trong lối sống lành mạnh, không phải thuốc.";
+    if (has(t,["cang thang","stress","lo au","met moi","ap luc","buon","tinh tam","thien","tho","hit tho","roi"])) return "Thử cách này nhé "+n+": bấm \"Pha trà, thư giãn\" ở trang chủ. Trong 5 phút chờ trà ngấm, thở theo nhịp hộp: hít vào 4 giây, giữ 4 giây, thở ra 4 giây, giữ 4 giây. Nhiều người dùng cách thở chậm này để bình tĩnh lại. Nếu căng thẳng kéo dài nhiều tuần, ảnh hưởng ăn ngủ, hãy chia sẻ với người thân hoặc chuyên gia tâm lý.";
+    if (has(t,["ngu","mat ngu","kho ngu","ngu ngon","buoi toi"])) { var ev = plan.locked ? null : plan.slots.filter(function(s){ return s.title==="Thư giãn buổi tối"; })[0];
+      return "Lá bồ đề không chứa caffeine nên uống buổi tối không làm bạn tỉnh như trà xanh hay cà phê. Mình gợi ý uống khoảng 150 ml, trước giờ ngủ 2 tiếng để không phải dậy giữa đêm"+(ev ? ", lịch của "+n+" đã có tách lúc "+ev.t : "")+". Trà không phải thuốc ngủ: mất ngủ kéo dài hơn 2–3 tuần thì nên gặp bác sĩ."; }
+    if (has(t,["tieu hoa","da day","tieu chay","dau bung","day hoi","kho tieu","tao bon","bao tu"])) return "Lá bồ đề chát vì nhiều tanin. Dân gian dùng lá bồ đề khi đi ngoài lỏng nhẹ, nhưng điều này chưa được kiểm chứng trên người. Để dạ dày dễ chịu:\na) Uống sau ăn 30 phút, không uống lúc đói.\nb) Pha nhạt: 150 ml, hãm 3 phút.\nc) Tiêu chảy quá 2 ngày, có máu hoặc sốt: đi khám ngay.";
+    if (has(t,["caffeine","cafein","cafe","ca phe","tinh tao","chat kich thich"])) return "Không. Lá bồ đề không thuộc họ chè nên không chứa caffeine. "+n+" uống buổi chiều hay tối vẫn được, miễn đừng quá 3 túi mỗi ngày.";
+    if (has(t,["co2","carbon","phat thai","lca","vong doi","khi thai","moi truong","nha kinh"])) return lcaSentence();
+    if (has(t,["vi nhua","nylon","nhua","nano"])) return "Túi lọc nhựa có thể nhả khoảng 11,6 tỉ hạt vi nhựa vào một tách khi ngâm nước nóng (ĐH McGill, 2019). Trà An Diệp dùng túi giấy sợi thực vật, dây cotton, không ghim kim loại, nên không có nhựa trong tách của "+n+".";
+    if (has(t,["rac","phan loai","thung rac","vut","bo dau","bo di","tai che","phan huy","bao bi","xu ly"])) return "Bao bì Trà An Diệp không có nhựa:\na) Bã trà và túi lọc giấy: rác hữu cơ, ủ phân hoặc vùi gốc cây.\nb) Dây cotton: phân hủy cùng túi.\nc) Hộp giấy kraft: rác tái chế.\nVới món rác khác, "+n+" vào tab Xanh, mục Phân loại rác bằng AI.";
+    if (has(t,["nguon goc","xuat xu","truy xuat","lo hang","thu hai","san xuat","o dau"])) return "Lô AD-2611 được thu hái lá bánh tẻ ngày 26/10, chọn lá bằng camera AI, sấy 50°C trong 6 giờ, đóng túi ngày 29/10 và kiểm tra chất lượng trước khi xuất kho 02/11 (dữ liệu mẫu của bản demo). Bấm dòng \"Đã quét hộp Trà An Diệp\" ở trang chủ để xem chi tiết.";
+    if (has(t,["quet la","kiem tra la","nhan dien","chup la","camera"])) return "Ở xưởng, camera chụp từng lá trên băng chuyền và AI loại lá sâu, đốm, héo. "+n+" có thể thử ở mục \"Kiểm tra lá bằng AI\" trên trang chủ.";
+    if (has(t,["bao nhieu","may tui","lieu","uong nhieu","qua lieu","moi ngay","toi da"])) return "Mỗi túi có 2 g lá khô. Mình khuyên tối đa 3 túi mỗi ngày, ít hơn nhiều so với lượng 10–15 g lá khô dân gian hay dùng. Lá nhiều tanin nên uống quá nhiều dễ chát bụng, táo bón. Hôm nay "+n+" đã uống "+done+" túi"+(plan.locked?".":", lịch gợi ý là "+plan.cups+" túi.");
+    if (has(t,["luc nao","khi nao","gio nao","thoi diem","buoi nao","hom nay","lich","may gio"])) return planSentence(plan);
+    if (has(t,["pha","ham","nhiet do","cach pha","ngon","nuoc soi","pha lai"])) return "Cách pha chuẩn:\na) 1 túi với 200 ml nước vừa sôi, 95–100°C. Chỉ đun đủ lượng nước cần để tiết kiệm điện.\nb) Đậy nắp, hãm 3 phút nếu thích nhạt, 5 phút vừa, 7 phút đậm.\nc) Túi pha được 2 lần, lần sau hãm lâu hơn 2 phút.\nBấm \"Pha một tách\", mình sẽ bấm giờ và thở cùng "+n+".";
+    if (has(t,["bao quan","han su dung","hsd","mo hop","am","moc","het han"])) return "Bảo quản nơi khô ráo, tránh nắng, đậy kín hộp sau khi mở. Nên dùng hết trong 3 tháng kể từ khi mở. Túi bị ẩm, có mùi lạ hoặc mốc thì bỏ đi.";
+    var r = runOutDate(plan);
+    if (has(t,["mua","gia","dat hang","dat them","het tra","ship","giao hang","con bao nhieu","sap het"])) return "Hộp của "+n+" còn "+box.remaining+" túi"+(r?", đủ đến khoảng "+dLabel(r.date):"")+". Hộp 20 túi giá dự kiến 59.000đ; gói tháng 60 túi 139.000đ, giao một lần nên vừa rẻ hơn vừa giảm phát thải giao hàng. Vào tab Cửa hàng để đặt nhé.";
+    if (has(t,["thanh phan","la bo de","bo de","cong dung","tac dung","tot gi","loi ich","nghien cuu","co gi"])) return "Túi Trà An Diệp chứa 100% lá bồ đề (Ficus religiosa), 2 g mỗi túi, không đường, không hương liệu, không caffeine. Dân gian dùng lá bồ đề để thanh nhiệt, giải độc, súc miệng khi viêm lợi. Lá có phenolic, flavonoid và tanin; khả năng chống oxy hóa, kháng khuẩn mới được ghi nhận ở phòng thí nghiệm và trên động vật, chưa có thử nghiệm trên người. Vì vậy mình xem đây là thức uống hỗ trợ thói quen lành mạnh, không phải thuốc.";
+    if (has(t,["chao","hello","hi","alo","xin chao","hey"])) return "Chào "+n+"! Mình là An Diệp. Mình giúp bạn pha trà, gợi ý giờ uống theo lịch riêng, nhắc lưu ý sức khỏe, tính dấu chân carbon và báo khi hộp trà sắp hết.";
+    if (has(t,["cam on","thank","thanks","tks"])) return "Không có gì, "+n+". Chúc bạn một tách trà an yên!";
+    return "Mình chưa hiểu rõ câu này. "+n+" có thể hỏi về cách pha, nên uống lúc nào, mỗi ngày mấy túi, ai không nên uống, dấu chân carbon, hoặc cách xử lý bao bì.";
+  }
+
+  function rules(){
+    var p = profile, plan = buildPlan(p), log = todayLog(), r = runOutDate(plan), L = lcaCompute(lca);
+    var G = {heat:"giải nhiệt mùa nóng", digest:"nhẹ bụng sau bữa ăn", sleep:"thư giãn trước khi ngủ", sugar:"bớt nước ngọt, trà sữa"};
+    var F = {pregnant:"đang mang thai hoặc cho con bú", meds:"đang dùng thuốc điều trị", stomach:"dạ dày nhạy cảm", allergy:"từng dị ứng nhựa cây họ Sung"};
+    return [
+      'Bạn là "An Diệp", trợ lý sức khỏe đi kèm sản phẩm Trà An Diệp, trà túi lọc lá bồ đề (bản demo của một dự án sinh viên về ứng dụng AI trong sản phẩm xanh). Người dùng vừa quét mã QR trên hộp trà để mở trợ lý. Tinh thần: mua túi trà là có thêm một trợ lý sức khỏe riêng, giúp sống chậm, an yên, xanh.',
+      '',
+      'CÁCH TRẢ LỜI',
+      'a) Tiếng Việt, xưng "mình", gọi người dùng là "'+nameOf()+'". Giọng ấm áp, điềm tĩnh, gần gũi, rõ ràng.',
+      'b) Ngắn: 2–5 câu, tối đa khoảng 100 từ (phân tích số liệu có thể tới 140 từ). Không dùng markdown (không dấu **, không #, không gạch đầu dòng). Nếu cần liệt kê, viết a), b), c), mỗi ý một dòng.',
+      'c) Cá nhân hóa theo hồ sơ, lịch hôm nay và số liệu bên dưới.',
+      'd) Chủ đề: trà, cách pha, thói quen uống, sức khỏe thường ngày, thư giãn, sống xanh, bao bì, phân loại rác, dấu chân carbon, mua hàng. Câu hỏi ngoài lề: trả lời một câu lịch sự rồi kéo về chủ đề trà.',
+      '',
+      'THÔNG TIN SẢN PHẨM',
+      'a) Thành phần: 100% lá bồ đề (Ficus religiosa), lá bánh tẻ, sấy 50°C. 2 g mỗi túi, hộp 20 túi. Không đường, không hương liệu, không caffeine (lá bồ đề không thuộc họ chè).',
+      'b) Cách pha: 1 túi với 200 ml nước 95–100°C, đậy nắp, hãm 3 phút (nhạt), 5 phút (vừa), 7 phút (đậm). Pha được 2 lần. Nút "Pha trà, thư giãn" trong app bấm giờ và hướng dẫn thở hộp 4-4-4-4 (hít vào 4 giây, giữ 4, thở ra 4, giữ 4) trong lúc chờ.',
+      'c) Khuyến nghị: tối đa 3 túi/ngày, uống sau ăn, không uống lúc đói. Dân gian thường dùng 10–15 g lá khô/ngày, 3 túi (6 g) thấp hơn nhiều.',
+      'd) Bao bì không nhựa: túi lọc giấy sợi thực vật không tẩy trắng, dây cotton, không ghim kim loại, hộp giấy kraft in mực gốc nước. Bã trà và túi là rác hữu cơ (ủ phân, vùi gốc cây); hộp là rác tái chế. Phân loại rác theo Luật Bảo vệ môi trường 2020: tái chế, thực phẩm/hữu cơ, còn lại; nguy hại thu gom riêng.',
+      'e) Túi lọc nhựa có thể nhả khoảng 11,6 tỉ hạt vi nhựa và 3,1 tỉ hạt nano nhựa vào một tách ở nhiệt độ pha (ĐH McGill, 2019).',
+      'f) Truy xuất lô AD-2611 (dữ liệu mẫu): thu hái 26/10, chọn lá bằng camera AI, sấy 27/10, đóng túi 29/10, kiểm tra 31/10, xuất kho 02/11.',
+      'g) Bảo quản khô ráo, tránh nắng, đậy kín; dùng hết trong 3 tháng sau khi mở; hạn dùng 12 tháng.',
+      'h) Giá dự kiến: hộp 20 túi 59.000đ, hộp 50 túi 129.000đ, gói tháng 60 túi 139.000đ (giao một lần mỗi tháng, giảm 2/3 phát thải giao hàng mỗi túi). Đặt ở tab Cửa hàng (bản demo, chưa thanh toán thật).',
+      '',
+      'KIẾN THỨC VỀ LÁ BỒ ĐỀ (nói đúng mức bằng chứng)',
+      'a) Dân gian: vị chát, tính bình; dùng thanh nhiệt, giải độc, hỗ trợ khi đi ngoài lỏng nhẹ, súc miệng khi viêm lợi.',
+      'b) Lá chứa phenolic, flavonoid, tanin. Nghiên cứu chỉ ở phòng thí nghiệm và trên động vật (chống oxy hóa, kháng khuẩn, hạ đường huyết ở chuột). Chưa có thử nghiệm lâm sàng trên người. Không có bằng chứng trà lá bồ đề ngừa nhồi máu cơ tim.',
+      'c) Lá nhiều tanin: uống nhiều hoặc lúc đói dễ khó chịu dạ dày, táo bón.',
+      '',
+      'DẤU CHÂN CARBON MỘT TÁCH (mô hình LCA của nhóm, theo lựa chọn hiện tại của người dùng ở tab Xanh)',
+      L.stages.map(function(s,i){ return "abcdefg"[i]+') '+s.name+': '+num(s.v,1)+' g CO₂e'; }).join('\n'),
+      'Tổng: '+num(L.total,1)+' g CO₂e/tách. Lựa chọn: đun '+lca.water+' ml nước bằng '+(lca.heat==="gas"?"bếp gas":"ấm điện")+', sấy '+(lca.dry==="solar"?"kết hợp mặt trời":"điện")+', nhận hàng: '+({single:"giao lẻ 1 hộp",monthly:"gói tháng 60 túi",store:"mua tại điểm bán"})[lca.ship]+', bã trà: '+(lca.eol==="landfill"?"bỏ rác chung":"ủ phân")+'.',
+      'Giả định: điện lưới VN 0,681 kg CO₂e/kWh (2024); nước 28°C đun lên 100°C; ấm điện hiệu suất 80%, bếp gas 45%; xe máy giao hàng 46 g CO₂/km, 5 km mỗi lần. Đây là ước tính minh họa, chưa kiểm định.',
+      '',
+      'QUY TẮC AN TOÀN (bắt buộc)',
+      'a) Không bao giờ nói trà chữa, trị, ngừa hay làm khỏi bệnh nào.',
+      'b) Không khuyên ngưng, giảm hay đổi thuốc. Người đang dùng thuốc (tiểu đường, huyết áp, tim mạch, gan…) cần hỏi bác sĩ điều trị trước; nếu được đồng ý thì tối đa 1 túi/ngày, cách giờ thuốc ít nhất 2 tiếng.',
+      'c) Mang thai, cho con bú, trẻ dưới 12 tuổi, người từng dị ứng nhựa cây họ Sung (Ficus): chưa có dữ liệu an toàn, khuyên hỏi bác sĩ trước khi uống.',
+      'd) Dấu hiệu nguy hiểm (đau ngực, khó thở, ngất, nổi mẩn lan nhanh, sưng môi, tiêu chảy có máu hoặc quá 2 ngày, sốt cao): khuyên gọi 115 hoặc đi khám ngay.',
+      'e) Căng thẳng thường ngày: có thể gợi ý pha trà và thở chậm. Nếu người dùng nói về ý định tự làm hại bản thân hoặc tuyệt vọng: trả lời ân cần, không bàn về trà, khuyên liên hệ ngay người thân, chuyên gia tâm lý, hoặc gọi 115 nếu không an toàn.',
+      'f) Không chẩn đoán bệnh. Không bịa số liệu hay tên nghiên cứu.',
+      '',
+      'HỒ SƠ NGƯỜI DÙNG' + (p.sample ? ' (hồ sơ mẫu, người dùng chưa nhập của mình; có thể gợi ý họ bấm vào ô vuông góc trên để nhập)' : ''),
+      'a) Tên gọi: '+nameOf(),
+      'b) Mục tiêu: '+((p.goals||[]).map(function(k){return G[k];}).join(", ") || "chưa chọn"),
+      'c) Số túi muốn uống mỗi ngày: '+p.cups+'; giờ đi ngủ: '+p.bed,
+      'd) Lưu ý sức khỏe: '+((p.flags||[]).map(function(k){return F[k];}).join(", ") || "không có"),
+      '',
+      'HÔM NAY ('+dLabel(new Date())+', bây giờ là '+nowHM()+')',
+      'a) Lịch gợi ý: '+planSentence(plan),
+      'b) Đã uống: '+log.length+' túi'+(log.length ? ' (lúc '+log.map(function(e){return e.t;}).join(", ")+')' : ''),
+      'c) Hộp đang dùng còn '+box.remaining+' túi'+(r ? ', đủ đến khoảng '+dLabel(r.date) : '')
+    ].join("\n");
+  }
+
+  function clean(s){ return String(s||"").replace(/\*\*|__/g,"").replace(/^#+\s*/gm,"").replace(/^\s*[-•*]\s+/gm,"– ").trim(); }
+
+  var chat = { turns:[], busy:false, ctl:null, mode:"connecting", started:false };
+  function renderStatus(){
+    var el = $("#status"); el.dataset.mode = chat.mode;
+    el.textContent = chat.mode==="online" ? "AI trực tuyến" : chat.mode==="offline" ? (BUILD==="apk" ? "Ngoại tuyến" : "Chế độ cơ bản") : "Đang kết nối";
+    el.title = chat.mode==="offline" ? "An Diệp trả lời từ dữ liệu có sẵn của sản phẩm" : "";
+  }
+  function addMsg(role, text){
+    var m = document.createElement("div"); m.className = "msg "+role;
+    if (text === null) m.innerHTML = '<span class="dots" aria-label="An Diệp đang soạn"><i></i><i></i><i></i></span>';
+    else m.textContent = text;
+    $("#msgs").appendChild(m); var b=$("#msgs"); b.scrollTop=b.scrollHeight;
+    return m;
+  }
+  function setBubble(m, text, note){
+    m.textContent = text;
+    if (note){ var s=document.createElement("span"); s.className="note"; s.textContent=note; m.appendChild(s); }
+    var b = $("#msgs"); b.scrollTop = b.scrollHeight;
+  }
+  function botSay(text){ ensureGreeting(); addMsg("bot", text); chat.turns.push({role:"assistant", content:text}); }
+  function ensureGreeting(){
+    if (chat.started) return; chat.started = true;
+    var plan = buildPlan(profile);
+    addMsg("bot", "Chào "+nameOf()+"! Mình là An Diệp, trợ lý đi kèm hộp trà lá bồ đề bạn vừa quét. "+
+      (plan.locked ? "Với lưu ý sức khỏe trong hồ sơ, mình chưa lên lịch uống cho bạn, nhưng vẫn sẵn sàng giải đáp." : "Mình đã lên lịch "+plan.cups+" tách cho hôm nay theo hồ sơ của bạn.")+
+      " Bạn muốn hỏi gì về cách pha, giờ uống, lưu ý sức khỏe hay sống xanh?");
+  }
+  function setBusy(b){ chat.busy = b; var btn = $("#chatSend"); btn.textContent = b ? "Dừng" : "Gửi"; btn.classList.toggle("btn-pri", !b); btn.classList.toggle("btn-out", b); }
+
+  async function send(q){
+    q = (q||"").trim(); if (!q || chat.busy) return;
+    ensureGreeting();
+    addMsg("user", q); chat.turns.push({ role:"user", content:q });
+    var bubble = addMsg("bot", null); setBusy(true);
+    var answer = "", note = "";
+    var s = chat.mode==="offline" ? null : await samplePromise;
+    if (s && chat.mode!=="offline"){
+      chat.ctl = new AbortController();
+      try {
+        var input = [{ role:"user", content: rules() }].concat(chat.turns.slice(-12));
+        var res = await s(input, { modelTier:"quick", cache:false, signal: chat.ctl.signal,
+          onText: function(u){ bubble.textContent = clean(u.text); var b=$("#msgs"); b.scrollTop=b.scrollHeight; } });
+        answer = clean(res.text);
+        if (res.truncated) note = "Câu trả lời bị cắt ngắn.";
+      } catch(e){
+        var code = e && e.code;
+        if (code === "cancelled") answer = clean(e.text) || "Đã dừng.";
+        else if (["not_granted","sampling_disabled","not_declared","capability_disabled","capability_removed","session_expired"].indexOf(code) >= 0){
+          chat.mode = "offline"; renderStatus(); answer = offline(q); note = "An Diệp đang trả lời ở chế độ cơ bản.";
+        } else {
+          answer = offline(q);
+          note = code==="rate_limited" ? "AI đang bận, An Diệp trả lời bằng dữ liệu có sẵn." : "Kết nối AI gián đoạn, An Diệp trả lời bằng dữ liệu có sẵn.";
+        }
+      }
+    } else {
+      await wait(450 + Math.random()*350);
+      answer = offline(q);
+    }
+    setBubble(bubble, answer, note);
+    chat.turns.push({ role:"assistant", content:answer });
+    chat.ctl = null; setBusy(false);
+  }
+  $("#composer").addEventListener("submit", function(e){
+    e.preventDefault();
+    if (chat.busy){ if (chat.ctl) chat.ctl.abort(); return; }
+    var i = $("#chatInput"); var v = i.value; i.value = ""; send(v);
+  });
+  function ask(q){ closeAll(); show("tro-ly"); send(q); }
+
+  /* ================= Sự kiện chung ================= */
+  document.addEventListener("click", function(e){
+    var t;
+    if ((t = e.target.closest("[data-ask]"))) { ask(t.dataset.ask); return; }
+    if ((t = e.target.closest("[data-go]"))) {
+      closeAll(); show(t.dataset.go);
+      var a = t.dataset.anchor; if (a) setTimeout(function(){ var el=document.getElementById(a); if (el) el.scrollIntoView({ behavior:"smooth", block:"start" }); }, 30);
+      return;
+    }
+    if ((t = e.target.closest(".tab"))) { show(t.dataset.view); return; }
+    if ((t = e.target.closest("[data-open-profile]"))) { openProfile(); return; }
+    if (e.target.closest("[data-brew]")) { openBrew(); return; }
+    if ((t = e.target.closest("[data-slot]"))) {
+      var s = t.dataset.slot;
+      if (t.getAttribute("aria-pressed")==="true") unlogSlot(s); else logCup(s);
+      renderAll(); return;
+    }
+    if ((t = e.target.closest("[data-item]"))) { var it = ITEMS[+t.dataset.item]; renderWasteResult(it, "Bạn chọn nhanh"); wasteAdd(it.b); return; }
+    if ((t = e.target.closest("[data-add]"))) { cart[t.dataset.add] = (cart[t.dataset.add]||0)+1; renderShop(); toast("Đã thêm vào giỏ"); return; }
+    if (e.target.closest("#cartClear")) { cart = {}; renderShop(); return; }
+    if (e.target.closest("#cartGo")) {
+      var lines = PRODUCTS.filter(function(p){ return cart[p.id]; }).map(function(p){ return '<div class="boxrow small" style="padding-block:6px;border-top:1px solid var(--rule)"><span>'+esc(p.name)+' × '+cart[p.id]+'</span><b class="num" style="font-size:16px">'+money(cart[p.id]*p.price)+'</b></div>'; }).join("");
+      var total = PRODUCTS.reduce(function(a,p){ return a+(cart[p.id]||0)*p.price; },0);
+      $("#orderBody").innerHTML = '<div>'+lines+'<div class="boxrow" style="border-top:2px solid var(--ink);padding-top:8px"><span class="lab" style="color:var(--ink)">Tổng</span><b class="num" style="font-size:22px">'+money(total)+'</b></div></div>';
+      openSheet("#sheetOrder"); return;
+    }
+  });
+  $("#btnProfile").addEventListener("click", openProfile);
+  $("#btnLeaf").addEventListener("click", function(){ openSheet("#sheetLeaf"); });
+  $("#btnOrigin").addEventListener("click", function(){ renderLCA(); openSheet("#sheetOrigin"); });
+  $("#orderOk").addEventListener("click", function(){ cart = {}; closeSheet($("#sheetOrder")); renderShop(); toast("Đã ghi nhận đơn mẫu. An Diệp sẽ nhắc khi hàng được giao."); });
+  $("#btnQrSave").addEventListener("click", async function(){
+    var d = await downloadsPromise; if (!d) return;
+    try { await d.save({ filename:"ma-qr-tra-an-diep.svg", data: QR_SVG }); toast("Đã lưu mã QR"); }
+    catch(e){ if (e && e.code !== "declined") toast("Chưa lưu được mã QR ở thiết bị này."); }
+  });
+
+  /* ================= Khởi động ================= */
+  $("#homeQs").innerHTML = QS.slice(0,5).map(function(q){ return '<button class="qrow" type="button" data-ask="'+esc(q)+'">'+esc(q)+'</button>'; }).join("");
+  $("#chatChips").innerHTML = QS.map(function(q){ return '<button class="prompt" type="button" data-ask="'+esc(q)+'">'+esc(q)+'</button>'; }).join("");
+  renderStatus(); setVisionUI(); renderAll(); renderWasteStats(); ensureGreeting();
+  show(location.hash.slice(1) || "trang-chu", true);
+  drawBrew();
+})();
+</script>
